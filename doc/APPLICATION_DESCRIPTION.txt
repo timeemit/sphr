@@ -1,0 +1,37 @@
+There are several features to this website:
+1) Unlike other social networks, a user assigns friends to "rings" of varying distance.
+  The greater the ring number, the less information the user is privileged to see.
+  Hence ring 1 should be reserved for close friends and family,
+  while higher rings ought to be occupied by professional colleagues and acquaintances 
+2) Users have greater customization over their public and private appearances over the web
+  - Profiles of information can be tailored to each ring.
+  - A "projection" is the first impression that a visitior has when visiting a users
+  page and can be setup to highlight different things to different people.
+3) Users can earn money by attracting people to their page.
+  Advertisements are displayed whenever users view one another's media or content.  Users
+	are then paid forward a percentage of how much money they generated depending on how many people
+	visited their site.  The more people that visit, the greater the share that they generate.
+
+Note that the development server will need the following installations:
+1) Rails
+2) Authlogic Gem #Should change to Devise or develop a custom authentication solution
+3) mysql2
+4) Formtastic
+5) JQuery #NOT Prototype
+
+======================================================================================================
+This is a social networking site with advanced friend management, job finding, and organization management.
+
+Individuals can manage their seven rings of friends, which range from best friends to acquaintances.  They can put friends into clusters that help them manage across rings.  Individuals can also create and manage organizations of individuals.
+
+Parents have control over the accounts of their children.
+
+Institutions can render services to individuals by establishing an identity on ring seven.  Institutions can offer polls on newly released products,  receive complaint feedback, and render store locations. Individuals can rate and comment on the service or products of a store in their neighborhood.
+
+Institutions can develop remote websites that tap into the information on ring seven.  Individuals can view what information these external sites use, how the information is used, and can choose to remove their information from the institution's base at any time.
+
+Dating service?
+
+Marketplace? Advertising?
+==> Pay users for content?
+

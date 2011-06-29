@@ -1,0 +1,19 @@
+require 'rubygems'
+
+# Set up gems listed in the Gemfile.
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__) #Rails 3.1.0.rc1
+
+# The following is for before Rails 3.1
+gemfile = File.expand_path('../../Gemfile', __FILE__)
+begin
+  ENV['BUNDLE_GEMFILE'] = gemfile
+  require 'bundler'
+  Bundler.setup
+rescue Bundler::GemNotFound => e
+  STDERR.puts e.message
+  STDERR.puts "Try running `bundle install`."
+  exit!
+end if File.exist?(gemfile)
+
+# The following is for Rails 3.1
+# require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE']) #Rails 3.1.0.rc1

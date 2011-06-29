@@ -1,0 +1,22 @@
+<h1>Shoutouts</h1>
+
+
+<% @shoutouts.each do |shoutout| %>
+<p>
+	<strong><%= link_through_name shoutout.author, current_user %></strong>
+	<% if @user == current_user %>
+		<%= raw ring_number(shoutout.ring) %>
+	<% end %>
+	<br>
+	<%= shoutout.content %> <br />
+	<%= link_to 'Show', user_shoutouts_path(shoutout) %>|
+	<% if current_user == shoutout.author or current_user == @user %>
+		<%= link_to 'Edit', edit_user_shoutout_path(shoutout.user, shoutout) %>|
+		<%= link_to 'Destroy', user_shoutout_path(shoutout.user, shoutout), 
+			:confirm => 'Are you sure?', :method => :delete %>
+	<% end %>
+</p>
+<br />
+<% end %>
+
+<%= link_to 'New Shoutout', new_user_shoutout_path(@user) %>

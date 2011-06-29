@@ -1,0 +1,15 @@
+<h2> Edit Profile </h2>
+
+<% form_for [@user, @profile] do |form| %>
+
+	<% render :partial => 'form', :locals => {:f => form} %>
+
+	<p>
+		<%= form.hidden_field(:ring_id) %>
+	</p>
+
+	<p><%= form.submit %></p>
+
+<% end %>
+
+<% link_to 'Cancel', user_profiles_path(@user) %>

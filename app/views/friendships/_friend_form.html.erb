@@ -1,0 +1,23 @@
+<%= form_for friendship do |form| %>
+	<% if friendship.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [friendship]}%>
+	<% end %>
+	<%= form.hidden_field(:user_id)%>
+	<%= form.hidden_field(:friend_id)%>
+	<p>
+		<%= form.label :note,'Make a Note' %><br />
+		<%= form.text_area :note %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => friendship, :attribute => :note}%>
+	</p>
+	<p>
+		<%= form.label :ring %>
+		<%= form.select :ring, current_user.ring_array %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => friendship, :attribute => :ring}%>
+	</p>
+	<p>
+		<%= form.label :cone %><br />
+		<%= render :partial => 'cone_connections_form', :locals => {:friendship => friendship, :form => form} %>
+	</p>	
+	<%= logger.info "JOSH id is #{friendship.id}" %>
+ 	<%= form.submit('Accept Friendship', :friendship => {:friend_id => friendship.ring.user.id}) %>
+<% end %>

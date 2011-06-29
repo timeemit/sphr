@@ -1,0 +1,44 @@
+<span style='text-align:center'>
+	<%= paginate @mutual_friendships %>
+</span>
+
+<% for friendship in @mutual_friendships %>
+	<%= tag('div', :class => :mutual, :style => "background-color:#{friendship.ring.rgb}; 
+		border-color:#{friendship.ring.rgb}") %>
+	<%= link_to friendship.friend.which_profile(current_user).ring.projected_name, user_shoutouts_path(friendship.friend),
+		:class => :name %>
+		<%= raw ring_number(friendship.ring) %>
+	
+	<%= div_for(friendship) do %>
+		<p>
+			<em>Friendship:</em>
+			<%= link_to 'View', friendship %> |
+			<%= link_to 'Edit', edit_friendship_path(friendship) %> |
+			<%= link_to 'End', friendship, :method => :delete %>
+		</p>
+		<p>
+			<em>Note to Self:</em>
+			<% if friendship.note.nil? %>
+				<%= link_to 'Write', edit_friendship_path(friendship) %>
+			<% else %>
+				<%= friendship.note %>
+			<% end %>
+		</p>
+		<p>
+			<em>Cones:</em>
+			<% if friendship.cone_connections.empty? %>
+				<%= link_to 'Specify', edit_friendship_path(friendship) %>
+			<% else %>
+				<% for connection in friendship.cone_connections %>
+					<%= link_to connection.cone.name, edit_friendship_path(friendship)  %>
+				<% end%>
+			<% end %>
+		</p>
+	<% end %>	
+	</li>
+	</div>	
+<% end %>
+
+<span style='text-align:center'>
+	<%= paginate @mutual_friendships %>
+</span>

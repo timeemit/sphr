@@ -1,0 +1,16 @@
+<h2> <%= @shoutout.author.name(current_user) %> Wrote </h2>
+<p>
+	<%= link_through_name @shoutout.author, current_user %>
+	<%= @shoutout.content %> 
+</p>
+This shoutout 
+<%= @shoutout.echo_range == 0 ? 'cannot be echoed' : "can be echoed #{pluralize @shoutout.echo_range, 'times'}"%>
+
+<%= tag('span', :class => 'ring', :style => "color:white; background-color:#{@shoutout.ring.rgb}")%>
+	Ring <%= @shoutout.ring.number %>
+</span>
+
+<br>
+<%= link_to 'Edit', edit_user_shoutout_path(@shoutout.user, @shoutout) %> |
+<%= link_to 'All', user_shoutouts_path(@shoutout.user) %> |
+<%= link_to 'Destroy', user_shoutouts_path(@shoutout.user, @shoutout), :method => :delete %>

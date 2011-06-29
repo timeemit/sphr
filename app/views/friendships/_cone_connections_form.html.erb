@@ -1,0 +1,12 @@
+<% friendship.cone_connections.each do |cone_connection| %>
+	<%= form.fields_for :cone_connections, cone_connection do |f|  %>
+		<% if friendship.cones.exists?(cone_connection.cone) %>
+			<%= f.check_box :_destroy, {:checked => true},false, true %>
+		<% else %>
+			<%= f.check_box :_destroy, {}, false, true %>
+		<% end %>
+		<%= f.hidden_field :cone_id %>
+		<%= f.hidden_field :friendship_id %>
+		<%= f.label :cone_id, cone_connection.cone.name %><br />
+	<% end %>
+<% end %>

@@ -1,0 +1,18 @@
+<h1><%= @cone.name %></h1>
+
+<% if @cone.friendships.empty?%>
+	<p>No friends are in this cone.</p>
+<% else%>
+	<ul>
+	<% @cone.friendships.each do |friendship| %>
+		<li>
+		<strong><%= link_through_name friendship.friend, current_user %></strong><br />
+		Username: <%= friendship.friend.username %><br />
+		Ring: <%= raw ring_number friendship.ring %>
+		</li>
+	<% end %>
+	</ul>
+<% end %>
+<br />
+<%= link_to 'Edit', edit_cone_path(@cone) %> |
+<%= link_to 'All', cones_path %>

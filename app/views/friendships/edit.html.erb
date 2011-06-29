@@ -1,0 +1,28 @@
+<h2>Configure Relationship</h2>
+
+<% form_for @friendship, :url => { :action => "update" }, :method => :post do |f| %>
+	<p>	
+		Bring <%= @friendship.friend.username %> into Ring
+		<%= f.select(:ring_id, @friendship.user.ring_array.collect{|i| [i, @friendship.user.rings.find_by_number(i).id]}, 
+			:default => [@friendship.ring.number, @friendship.user.rings.find_by_number(@friendship.ring.number).id]) %>
+	</p>	
+	<% unless @friendship.mutual? %>
+		<p>
+			<%= f.label :message %><br />
+			<%= f.text_area :message %>
+			<%= render :partial => 'partials/error_message', :locals => {:object => @friendship, :attribute => :message}%>
+		</p>
+	<% end %>
+	<p>
+		<%= f.label :note, 'Note to Self' %><br />
+		<%= f.text_area :note %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @friendship, :attribute => :message}%>
+	</p>
+	<p>
+		<%= f.label :cone_id %><br />
+		<%= render :partial => 'cone_connections_form', :locals => {:friendship => @friendship, :form => f}%> 
+	</p>
+	<%= f.submit('Submit')%>
+<% end %>
+<%= link_to 'Cancel', friendship_path(@friendship)%><br />
+<%= link_to 'All', friendships_path %>

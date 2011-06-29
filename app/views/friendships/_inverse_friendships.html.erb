@@ -1,0 +1,21 @@
+<% for friendship in @inverse_friendships %>
+<div style='padding:5px 10px;'>	<strong><%= link_to friendship.ring.projected_name, user_shoutouts_path(friendship.user) %></strong>
+	<p>
+		<em>Friendship:</em>
+		<%= link_to 'Accept', 
+			friendships_path(:friendship => {:friend_id => friendship.user.id, :ring_id => current_user.public_ring.id}), 
+			:method => :post %> |
+		<%= link_to 'Refuse Friendship', friendship_path(friendship), 
+			:confirm => "Refuse friendship with #{friendship.user.username}?", 
+			:method => :delete %>
+	</p>
+	<p>
+		<em>Message:</em>
+		<% if friendship.message.blank? %>
+			No Message	
+		<% else %>
+			<%= friendship.message %>
+		<% end %>
+	</p>
+	<% @inverse_friendship_counter += 1 %>
+</div><% end %>

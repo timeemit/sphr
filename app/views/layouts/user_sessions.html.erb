@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Sphr</title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'home' %>
+  <%= csrf_meta_tag %>
+
+	<script language='javascript' type='text/javascript'>
+	<!--
+		/*
+		navigation_toggle_display runs the script.aculo.us BlindDown/BlindUp scripts to display the expanded 		
+		menus in the naviagtion bar
+		*/
+		function navigation_toggle_display(name) {
+			var id = document.getElementById(name);
+   		var div = document.getElementById(name + '_child');
+    	if(div.style.display == 'none')
+			{
+				id.innerHTML = "-- " + name;
+	      new Effect.BlindDown(div, {duration:0.2});
+			}
+      else
+			{
+				id.innerHTML = "+ " + name;
+      	new Effect.BlindUp(div, {duration:0.2});
+			}
+	  }
+	//-->
+	</script>
+	
+	<%= yield :head %>
+	
+</head>
+	
+<div id='supercontainer'>
+<div id='header'>
+	<span id='logo'><%= render :partial => 'layouts/logo' %></span>
+	<h2 id='slogan' style='border-top-left-radius:0px; border-bottom-left-radius:0px;'> 
+		because 
+		<span class='green'>friendship</span> 
+		shouldn't 
+		<span class='red'>sacrifice</span> 
+		<span class='blue'>privacy</span></h2>
+</div>	
+
+<div id='main'>
+	<% if flash[:notice].nil? %>
+		<br />
+	<% else %>		
+		<div id='flash'><%= flash[:notice] %></div>
+	<% end %>
+	
+	<div id='fields' class='col'>
+		<br />
+		<%= yield  %>
+	</div>
+	
+	<div id='intro' class='col'>
+		<span style='font-size:40px;'>
+			<strong class='green'>Sphr</strong> is a network designed for
+			<em class='blue'><strong>privacy</strong></em>.</span><br>
+		<div style='font-size:20px; text-align:right;'>
+			Control who sees your activity, <br/ >personal information, and communications <br /> 
+			through two intuitive features.
+		</div>
+		<ol style='font-size:30px;'>
+			<li>Assign friends distances by placing them into rings.  <br />
+				<div class='second_line'>
+					<span class='red'>Farther</span> friends see less <br />information than <span class='blue'>closer</span> ones. 
+				</div>
+			</li>
+			<li>Place friends into groups called "cones". <br />
+				<div class='second_line'>
+					Useful privacy controls are fully integrated <br />throughout your communication interfaces.
+				</div>
+			</li>
+		</ol>
+	</div>
+	
+</div>
+
+</div>
+</body>
+</html>

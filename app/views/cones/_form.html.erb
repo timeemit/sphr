@@ -1,0 +1,28 @@
+<%= form_for(@cone) do |f| %>
+	<% if @cone.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [@cone]}%>
+	<% end %>
+
+	<p>
+		<%= f.label :name %><br />
+		<%= f.text_field :name%>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @cone, :attribute => :name}%>
+	</p>
+  <% @cone.cone_connections.each do |cone_connection| %>
+		<% f.fields_for :cone_connections, cone_connection do |form| %>
+		<p>	
+			<% if @cone.friendships.exists?(cone_connection.friendship) %>
+				<%= form.check_box :_destroy, {:checked => true}, false, true %>
+			<% else %>
+				<%= form.check_box :_destroy, {}, false, true %>
+			<% end %>
+			<%= form.hidden_field :friendship_id %>
+			<%= form.hidden_field :cone_id %>
+			<%= form.label :friendship_id, cone_connection.friendship.friend.name(current_user) %>
+			<%= render :partial => 'partials/error_message', :locals => {:object => cone_connection, :attribute => :friendship_id}%>
+		</p>
+		<% end %>
+	<% end %>
+	<%= f.submit %>
+
+<% end %>

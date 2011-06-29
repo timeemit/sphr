@@ -1,0 +1,59 @@
+<h2 style='margin:0px'>Login</h2>
+
+<%= form_for @user_session, :url => {:controller => "user_sessions", :action => "create"} do |f| %>
+  <% if @user_session.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [@user_session]}%>
+	<% end %>
+  <p>
+		<%= f.label :username %><br />
+  	<%= f.text_field :username %>
+		<%= render :partial => 'partials/error_message', 
+			:locals => {:object => @user_session, :attribute => :username}%>
+	</p>
+	<p>	
+	  <%= f.label :password %><br />
+	  <%= f.password_field :password %><br />
+		<%= render :partial => 'partials/error_message', 
+			:locals => {:object => @user_session, :attribute => :password}%>
+	</p>
+  <%= f.submit "Login" %>
+<% end %>
+
+<h2>Register</h2>
+
+<%= form_for @user do |form| %>
+	<% if @user.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [@user]}%>
+	<% end %>
+	<p>
+		<%= form.label :username %><br />
+		<%= form.text_field :username %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :username}%>
+	</p>
+	<p>
+		<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
+		<%= form.password_field :password %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password}%>
+	</p>
+	<p>
+		<%= form.label :password_confirmation %><br />
+		<%= form.password_field :password_confirmation %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password_confirmation}%>
+	</p>
+	<p>
+		<%= form.label :email %><br />
+		<%= form.text_field :email %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email}%>
+	</p>
+	<p>
+		<%= form.label :email_confirmation %><br />
+		<%= form.text_field :email_confirmation %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email_confirmation}%>
+	</p>
+	<p>
+		<%= form.label :distinction, 'ID Remark' %><br />
+		<%= form.text_field :distinction %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :distinctio}%>
+	</p>  
+	<%= form.submit "Register" %>
+<% end %>

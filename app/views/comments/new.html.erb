@@ -1,0 +1,5 @@
+<h2> New Comment for <%=h @recipient.name(current_user) %></h2>
+
+<%= render :partial => 'form' %>
+
+<p><%= link_to "Back to List", user_posts_path(@user) %></p>

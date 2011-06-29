@@ -1,0 +1,21 @@
+<h1>Listing echoes</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @echoes.each do |echo| %>
+  <tr>
+    <td><%= link_to 'Show', echo %></td>
+    <td><%= link_to 'Edit', edit_echo_path(echo) %></td>
+    <td><%= link_to 'Destroy', echo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Echo', new_echo_path %>

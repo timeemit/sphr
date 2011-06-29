@@ -1,0 +1,18 @@
+<h2> New Profile </h2>
+
+<% form_for [@user, @profile] do |form| %>
+
+<%= render :partial => 'form', :locals => {:f => form} %>
+
+<p>
+	<%= form.label :ring_id %><br />
+	<%= form.select(:ring_id, current_user.ring_array.collect{ |i| 
+		current_user.rings.find_by_number(i).profile.nil? ? [i, current_user.rings.find_by_number(i).id]:nil}.compact) %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @profile, :attribute => :ring_id}%>
+</p>
+
+<p><%= form.submit %></p>
+
+<% end %>
+
+<% link_to 'Cancel', user_profiles_path(@user) %>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller.action_name.capitalize %> <%= controller.controller_name.capitalize %></title>
+	<%= javascript_include_tag :defaults %>
+	<%= stylesheet_link_tag 'scaffold' %>
+  <%= csrf_meta_tag %>
+	
+	<%= yield :head %>
+	
+</head>
+
+<body>
+	
+<div id='supercontainer'>	
+<div id='header'>
+</div>	
+<div id='main', class='container'>
+	<div id='navigation', class='col'>
+		<%= image_tag 'logo23.png', {:height => 80, :width => 120} %>		
+		
+		<div id='Me_child'>
+			<%= link_to 'Shoutouts', user_shoutouts_path(current_user), :class => 'navigation'%>
+			<%= link_to 'Profiles', user_profiles_path(current_user), :class => 'navigation' %>
+		</div>
+		<div id='Friends_child'>
+			<%= link_to 'Friends', friendships_path, :class => 'navigation' %>
+			<%= link_to 'Cones', cones_path, :class => 'navigation' %>
+			<%= link_to 'Find', users_path, :class => 'navigation' %> 
+			<%= link_to 'Logout', {:action=>"destroy", :controller=>"user_sessions"}, :method => :delete, 
+				:confirm => 'are you sure?', :class => 'navigation' %>
+		</div>
+
+	</div>
+	<div id='content' class='col'>
+		<div id='flash'><%= flash[:notice] %></div>
+		<%= yield  %>
+	</div>
+	
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+#header{
+	width:800px;
+	background:black;
+}
+
+#logo{
+	width:120px;
+	height:80px;
+	display:inline;
+	float:left;
+	border-bottom:thick solid black;	
+	border-left:10px solid black;
+	border-right:10px solid black;
+}
+
+#slogan{
+	padding:0px;
+	padding-top:25px;
+	margin:0px;
+	height:60px;
+	width:660px;
+	display:block;
+	float:left;
+}
+
+.green{color:limegreen;}
+
+.red{color:red;}
+
+.blue{color:dodgerblue;}
+
+#fields{
+	width:250px;
+	text-align:right;
+}
+
+#fields input{text-align:right;}
+
+#intro{
+	width:530px;
+	margin-left:20px;
+}
+
+.second_line{
+	font-size:20px; 
+	text-align:right;
+	font-style:italic;
+}

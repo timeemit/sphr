@@ -1,0 +1,36 @@
+<%= form_for [@user, @shoutout] do |f| %>
+	<% if @shoutout.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [@shoutout]}%>
+	<% end %>
+
+	<p>
+		<%= f.label :content %><br />
+		<%= f.text_field :content %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @shoutout, :attribute => :content}%>
+	</p>
+	<p>
+		<%= f.label :echo_range %>
+		<%= f.select :echo_range, [0, 1, 2, 3, 4, 5, 10, 25, 50, 100, ['Unlimited', -1]] %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @shoutout, :attribute => :echo_range}%>
+	</p>
+	<% if @user == current_user %>
+		<p>
+			<%= f.label :ring_id %>
+			<%= f.select :ring_id, @user.rings.collect{
+				|ring| [ring.number.to_s + ' - ' + ring.name, ring.id]}.sort{|a,b| a.first <=> b.first} %>
+			<%= render :partial => 'partials/error_message', :locals => {:object => @shoutout, :attribute => :ring_id}%>
+		</p>
+	<% else %>
+		<p>
+			<%= f.hidden_field :ring_id %>
+		</p>
+	<% end %>
+	<p>
+		<%= f.hidden_field :author_id %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @shoutout, :attribute => :author_id}%>
+	</p>
+	<br />
+	<p>
+	  <%= f.submit %>
+	</p>
+<% end %>

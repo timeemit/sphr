@@ -1,0 +1,59 @@
+<% content_for :head do %>
+	<style type='text/css'>
+		#inverse_friendships{
+			width:300px;
+		}
+		#friendships{
+			width:300px;
+		}
+		#container .col{
+			margin-right:5px;
+			margin-left:5px;
+		}
+		.mutual{
+			color:white;
+			width:260px;
+			height:120px;
+			border:10px solid;
+			margin:5px;
+			padding-left:20px;
+			float:left;
+			border-radius:15px;
+		}
+		div.mutual .ring{
+			float:right;
+		}
+		div.mutual a{
+			color:white;
+			text-decoration:underline;
+		}
+		
+	</style>
+<% end %>
+
+<h2>Friendships </h2>
+
+<div id='mutual_friendships'>
+	<h3>Mutual Friends</h3>
+	<%= render :partial => 'mutual_friends' %>
+</div>
+
+<div id='container', style='float:left;'>
+	<div id='inverse_friendships', class='col'>
+		<h3> Proposals You've Received</h3>
+		<% if @inverse_friendships.empty? %>
+			You have no friend invitations at this time
+		<% else %>
+			<%= render :partial => 'inverse_friendships' %>
+		<% end %>
+	</div>
+
+	<div id='friendships', class='col'>
+		<h3> Proposals You've Sent </h3>
+		<% if @friendships.empty?  %>
+			You have not proposed any friendships.
+		<% else %>
+			<%= render :partial => 'friendships' %>
+		<% end %>
+	</div>
+</div>

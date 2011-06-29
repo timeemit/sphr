@@ -1,0 +1,28 @@
+<h2>Cones Index</h2>
+<%= link_to 'New Cone', new_cone_path %> 
+
+<% if @cones.empty? %>
+	You currently have no cones.
+<% else %>
+	<% @cones.each do |cone| %>
+		<h3><%= cone.name %></h3>
+		
+		<%= link_to 'View', cone %> |
+		<%= link_to 'Edit', edit_cone_path(cone) %> |
+		<%= link_to 'Destroy', cone, :confirm => 'Are you sure?', :method => :delete %>
+
+		<% unless cone.friendships.empty?%>
+		<ul>
+		<% cone.friendships.each do |friendship| %>
+			<li>
+			<strong><%= link_through_name friendship.friend, current_user %></strong><br />
+ 			<%= tag('span', :class => :ring, :style => "background-color:#{friendship.ring.rgb}") %> 
+				Ring <%= friendship.ring.number %>
+			</span>
+		<% end %>
+		</ul>
+		<% end %>
+		</li>
+	<% end %>
+<% end %>
+

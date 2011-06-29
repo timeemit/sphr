@@ -1,0 +1,139 @@
+body { background-color: #fff; color: #333;}
+
+body, p, ol, ul, td, textarea {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+	margin:				0px;
+}
+
+h1, h2, h3, h4, h5, h6 { 
+	background-color:#000000;
+	color: #FFFFFF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	border-radius: 15px;
+}
+
+h4, h5, h6 {padding: 2px 0;}
+
+label{font-size: 15px;}
+
+textarea {
+	height: 45px;
+	width:220px;
+	font-size: 14px;
+}
+
+pre { 
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a { text-align:right; display:inline; text-decoration:none; color:#0000FF;}
+a:visited { color:#0000FF; }
+a:hover { color:blue; background-color:#90EE90; }
+a.navigation {
+	color:black;
+	background:white;
+	display:block;
+	width:100%;
+	overflow:hidden;
+	text-decoration:none;
+}
+a.navigation:hover{ color:white; background:black;}
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+#flash, #notice {
+  color: green;
+}
+
+#supercontainer{width:800px; margin:auto;}
+
+#header{
+	text-align:left;
+}
+
+#main{
+	width:800px;
+}
+
+.container{
+	clear:both;
+  height:100%;
+  overflow:hidden;
+}
+
+#main .col{
+   position:relative;
+   float:left;
+}
+
+#navigation{
+	width:120px;
+  padding:15px;
+	display:block;
+/*background:#006600;*/
+}
+
+#content{
+  width:620px;
+  padding:0px 15px;
+	display:block;
+	background:#FFFFFF;
+	text-align:left;
+}
+
+/*Interface*/
+
+.name{font-weight:bold;}
+
+.ring{padding:2px 8px; color:white; border-radius:5px;}
+
+/*Errors*/
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation h3 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+.field_with_errors{
+  font-weight:bold;
+	color: red;
+	padding:0px;
+	display:inline;
+	font-size:16px;
+}
+
+.field_with_errors .message{
+	font-style: italic;
+}
+
+.field_with_errors>input, .field_with_errors>textarea{
+	border: 2px solid red;
+}

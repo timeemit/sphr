@@ -1,0 +1,25 @@
+<% if @profile.errors.any? %>
+	<%= render :partial => 'partials/errors', :locals => {:objects => [@profile]} %>
+<% end %>
+
+<p>
+	<%= f.label :first_name %>
+	<%= f.text_field :first_name %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @profile, :attribute => :first_name}%>
+</p>
+<p>
+	<%= f.label :last_name %> 
+	<%= f.text_field :last_name %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @profile, :attribute => :last_name}%>
+</p>
+<p>
+ 	<%= f.label :sex %><br />
+ 	<%= f.select(:sex, ['Male','Female'], :include_blank => true) %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @profile, :attribute => :sex}%>
+</p>
+<p>
+ 	<%= f.label :birthdate %><br />
+ 	<%= f.date_select(:birthdate, :start_year => (1910), 
+		:end_year => Time.now.year, :include_blank => true) %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @profile, :attribute => :birthdate}%>	
+</p>

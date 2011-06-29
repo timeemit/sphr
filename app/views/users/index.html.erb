@@ -1,0 +1,41 @@
+<h2>Users</h2>
+
+<div id='search', style='text-align:center'>
+	<% form_for @search do |f| %>
+	  <p>
+	    <%= f.text_field :username_contains %>  <!-- :username_or_distinction_contains not working... -->
+			<%= f.submit 'Search' %>
+	  </p>
+	<% end %>
+</div>
+
+<span style='text-align:center'>
+	<%= paginate @users, :window => 2, :outer_window => 2 %>
+</span>
+
+<br />
+
+<ul>
+<% for user in @users %>
+	<% unless user == current_user %>
+		<li>
+			<%= link_to user.username, user_shoutouts_path(user), :class => :name %>	
+			| <%= user.distinction %>
+			<% unless current_user.mutual_friends.include?(user) %>
+				| <%= link_to 'Propose Friendship', 
+					friendships_path(:friendship => {:friend_id => user.id, :ring_id => current_user.public_ring.id}),
+					:method => :post %>
+			<% end %>
+			<%= div_for(user, :style => 'display:none;') do %>
+				<%= user.distinction %>	
+			<% end %>
+		</li>
+	<% end %>
+<% end %>
+</ul>
+
+<br />
+
+<span style='text-align:center'>
+	<%= paginate @users %>
+</span>

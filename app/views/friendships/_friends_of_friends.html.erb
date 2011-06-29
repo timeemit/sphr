@@ -1,0 +1,22 @@
+
+<% if @friends_of_friends.empty? %>
+	You are friends with everyone!  Congratulations!
+<% else %>
+
+<!-- <p><%# link_to_function 'Display', 'toggle_display("Friends_of_Friends");' %> </p> -->
+<div id = 'Friends_of_Friends'>
+	<ul>
+		<% for friendship in @friends_of_friends %>
+		<li>
+			<strong><%= link_to friendship[0].name(current_user), user_posts_path(friendship[0]) %></strong> 
+			(<%= pluralize friendship[1], 'mutual friend' %>)
+			<%= link_to_function 'Add As Friend' %> |
+			<%= div_for(friendship) do %>
+				<%= render :partial => 'friend_form', :locals => {:friendship => @reciprocated_friendships[@inverse_friendship_counter]} %>
+			<% end %>			
+			<% @new_friendship_counter += 1 %>
+		</li>
+	<% end %>
+	</ul>
+</div>
+<% end %>

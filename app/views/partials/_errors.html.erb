@@ -1,0 +1,12 @@
+<div id='error_explanation'>
+<h3> Please attend to the following fields: </h3>
+<br />
+<ul>
+	<% objects.each do |object| %>
+		<% parse_errors_for(object).each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	<% end %>
+</ul>
+<br />
+</div>

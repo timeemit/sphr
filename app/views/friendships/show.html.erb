@@ -1,0 +1,42 @@
+<h2>Friendship</h2>
+<p>
+	A 
+	<%= tag('span', :class => 'ring', :style => "color:white; background-color:#{@friendship.ring.rgb}")%>
+		Ring <%= @friendship.ring.number %></span>
+	(<%= link_to 'Change', edit_friendship_path(@friendship) %>)
+	friendship with
+	<%= link_to @friendship.friend.which_profile(current_user).ring.projected_name, user_shoutouts_path(@friendship.friend),
+	 	:class => :name %>
+	<% if @friendship.mutual? %>
+ 		is mutual.
+	<% else %>
+		has been proposed.
+	<% end %>
+</p>	
+<p>
+	<strong>Note to Self:</strong>
+	<% if @friendship.note.blank? %>
+		<em><%= link_to 'Write', edit_friendship_path(@friendship) %></em>
+	<% else %>
+		<%= @friendship.note%>
+	<% end %>
+</p>
+<p>
+	<strong>Cones:</strong>
+	<% if @friendship.cones.empty? %>
+		<em><%= link_to 'Specify'%></em>
+	<% else %>
+		<ul>
+			<% @friendship.cones.each do |cone| %>
+			<li>
+				<%= link_to cone.name, cone_path(cone) %>
+			</li>
+			<% end %>
+		</ul>
+	<% end %>
+</p>
+<p>
+<%= link_to 'Configure', edit_friendship_path(@friendship) %> |
+<%= link_to 'End', @friendship, :method => :delete %> |
+<%= link_to 'All', friendships_path %>
+</p>

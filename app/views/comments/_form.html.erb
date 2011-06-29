@@ -1,0 +1,10 @@
+<% form_for [@recipient, @post, @comment] do |f| %>
+	<% if @comment.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:object => @comment} %>
+	<% end %>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

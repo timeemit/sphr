@@ -1,0 +1,16 @@
+<% for friendship in @friendships %>
+	<% unless friendship.id == nil %>
+		<p>
+			<%= link_to friendship.friend.username, user_shoutouts_path(friendship.friend), :class => :name %>
+			into 
+			<%= tag('span', :class => :ring, :style => "background-color:#{friendship.ring.rgb};")%> 
+				Ring <%= friendship.ring.number %>
+			</span>
+		<p>			
+			<em>Friendship:</em>
+			<%= link_to 'View', friendship %> |
+			<%= link_to 'Configure', edit_friendship_path(friendship) %> |
+			<%= link_to "Retract", friendship, :method => :delete %>
+		</p>
+	<% end %>
+<% end %>

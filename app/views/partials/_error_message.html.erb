@@ -1,0 +1,9 @@
+<% unless object.errors.empty? %>
+	<ul>
+		<% object.errors.each do |errors_attribute, error|%>
+			<% if attribute == errors_attribute %>
+				<li> <%= error %></li>
+			<% end %>
+		<% end %>
+	</ul>	
+<% end %>

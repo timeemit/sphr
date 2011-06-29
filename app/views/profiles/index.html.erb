@@ -1,0 +1,171 @@
+<% content_for :head do %>
+	<style type="text/css">
+		td{width:<%= (520/(current_user.rings.count)).floor %>px; padding:0px;}
+		th{text-align:right; width:100px; padding:0px; padding-right:10px;}
+		tr{text-align:center; height:40px;}
+		.button{height:20px;}
+		.ring_profile{color:white; border-radius:8px;}
+		.example{width:100;}
+		.example_ring{width:100px;color:white;}
+		table{text-align:center;}
+	</style>
+<% end %>
+
+<h2> Profiles </h2>
+
+<p><%= link_to "New Profile", new_user_profile_path %></p>
+
+<br />
+
+<table>
+	<tr>
+    <th style='width:100px'>Ring</th>
+  	<% for ring in @rings %>
+			<%= tag('td', { :style=>"background-color:#{ring.rgb};", :class => 'ring_profile'}) %>
+	  	<%= ring.number %>
+			</td>
+		<% end %>
+	</tr>
+  <tr>
+    <th>Ring Name</th>
+  	<% for ring in @rings %>
+			<%= tag('td', { :style=>"background-color:#{ring.rgb};", :class => 'ring_profile'}) %>
+			<%= ring.name %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<th>First Name</th>
+  	<% for ring in @rings %>
+			<%= tag('td', { :style=>"background-color:#{ring.rgb};", :class => 'ring_profile'}) %>
+			<% if ring.profile.nil? %>
+				--->
+			<% else %>
+				<%= ring.profile.first_name %>
+			<% end %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>	
+		<th>Last Name</th>
+  	<% for ring in @rings %>
+			<%= tag('td', { :style=>"background-color:#{ring.rgb};", :class => 'ring_profile'}) %>
+			<% if ring.profile.nil? %>
+				--->
+			<% else %>
+				<%= ring.profile.last_name %>
+			<% end %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<th>Sex</th>
+  	<% for ring in @rings %>
+			<%= tag('td', { :style=>"background-color:#{ring.rgb};", :class => 'ring_profile'}) %>
+			<% if ring.profile.nil? %>
+				--->
+			<% else %>
+				<%= ring.profile.sex %>
+			<% end %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<th>Birthdate</th>
+  	<% for ring in @rings %>
+			<%= tag('td', { :style=>"background-color:#{ring.rgb};", :class => 'ring_profile'}) %>
+			<% if ring.profile.nil? %>
+				--->
+			<% else %>
+				<%= ring.profile.birthdate %>
+			<% end %>
+			</td>
+		<% end %>
+  </tr>
+	<tr class='button'>
+		<td></td>
+  	<% for ring in @rings %>
+			<td>
+			<% if ring.profile.nil? %>
+				<%= link_to 'Specify', new_user_profile_path(@user)%>
+			<% else %>
+				<%= link_to 'Show', user_profile_path(@user, ring.profile) %></td>
+			<% end %>
+		<% end %>
+	</tr>
+	<tr class='button'>
+		<td></td>
+  	<% for ring in @rings %>
+			<td>
+			<% if ring.profile.nil? %>
+				
+			<% else %>
+				<%= link_to 'Edit', edit_user_profile_path(@user.id, ring.profile.id) %></td>
+			<% end %>
+		<% end %>
+	</tr>
+	<tr class='button'>
+		<td>
+		</td>
+  	<% for ring in @rings %>
+			<% unless ring.profile.nil? or ring.public_ring == true %>
+ 				<td><%= link_to 'Destroy', user_profile_path(@user.id, ring.profile.id), 
+					:confirm => 'Are you sure?', :method => :delete %></td>
+			<% end %>
+		<% end %>
+	</tr>
+	<tr >
+		<th>A Friend</th>
+		<% for friendship in @friendships %>
+			<td><%= link_through_name friendship.friend, current_user, :class => :name %></td>
+		<% end %>
+	</tr>
+</table>
+
+<h4> Note: </h4>
+<p>	<em style='font-size:12px;'>
+	The profile of the <strong>next farthest ring</strong> is presented to friends in rings with unspecified profiles.
+</em></p><br />
+For example, suppose you have four rings but have profiles in only Rings 1 and 4: <br /> 
+<table id='profiles', style='width:500px'>
+	<tr>
+    <th class='example'>Ring</th>
+		<td class='example_ring' style='background-color:rgb(0,0,255)'>1</td>
+		<td class='example_ring' style='background-color:rgb(83,0,166)'>2</td>
+		<td class='example_ring' style='background-color:rgb(166,0,83)'>3</td>
+		<td class='example_ring' style='background-color:rgb(255,0,0)'>4</td>
+	</tr>
+  <tr>
+    <th class='example'>First Name</th>
+		<td class='example_ring' style='background-color:rgb(0,0,255)'>John</td>
+		<td class='example_ring' style='background-color:rgb(83,0,166)'>---></td>
+		<td class='example_ring' style='background-color:rgb(166,0,83)'>---></td>
+		<td class='example_ring' style='background-color:rgb(255,0,0)'>John</td>
+	</tr>
+  <tr>
+    <th class='example'>Last Name</th>
+		<td class='example_ring' style='background-color:rgb(0,0,255)'>Doe</td>
+		<td class='example_ring' style='background-color:rgb(83,0,166)'>---></td>
+		<td class='example_ring' style='background-color:rgb(166,0,83)'>---></td>
+		<td class='example_ring' style='background-color:rgb(255,0,0)'></td>
+	</tr>
+</table>
+<br /><p>So a friend in... </p>
+<ul style='list-style-type:none'>		
+	<li>
+		<%= image_tag 'friend1.png', :style=> 'vertical-align:middle;' %> 
+		<span class='example_ring' style='color:rgb(0,0,255)'>Ring 1</span> will see "John Doe"
+	</li>
+ 	<li>
+		<%= image_tag 'friend2.png', :style=> 'vertical-align:middle;' %> 
+		<span class='example_ring' style='color:rgb(83,0,166)'>Ring 2</span> will see "John"
+	</li>
+ 	<li>
+		<%= image_tag 'friend3.png', :style=> 'vertical-align:middle;' %>
+		<span class='example_ring' style='color:rgb(166,0,83)'>Ring 3</span> will see "John"
+	</li>
+ 	<li>
+		<%= image_tag 'friend4.png', :style=> 'vertical-align:middle;' %> 
+		<span class='example_ring' style='color:rgb(255,0,0)'>Ring 4</span> will see "John"
+	</li>
+</ol>
