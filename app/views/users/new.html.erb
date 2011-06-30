@@ -1,3 +1,19 @@
-<h1>Register</h1>
+<h1>Signup</h1>
 
-<%= render :partial => 'form', :locals => {:user => @user} %>
+<%= form_for @user do |form| %>
+	<% if @user.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [@user]}%>
+	<% end %>
+	<p>
+		<%= form.label :email %><br />
+		<%= form.text_field :email %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email}%>
+	</p>
+	<p>
+		<%= form.label :email_confirmation %><br />
+		<%= form.text_field :email_confirmation %>
+		<%= render :partial => 'partials/error_message', 
+			:locals => {:object => @user, :attribute => :email_confirmation}%>
+	</p>
+	<%= form.submit "Register" %>
+<% end %>

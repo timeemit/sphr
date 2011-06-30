@@ -110,8 +110,8 @@ class User < ActiveRecord::Base
 	            :confirmation => true,
 	            :format => {
 	              :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-            		:message => "addresses begin with alphanumeric characters, followed by an @ sign, 
-                  followed by a period delimited server name."
+            		:message => "must be an '@' following alphanumeric or . _ % + - characters ending
+                  with a period delimited server name."
 	            }
   
   validates :email_confirmation, #Probably unnecessary, since :confirmation => true is written
@@ -347,6 +347,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |config|
     config.validate_login_field = false
     config.validate_password_field = false
+    config.validate_email_field = false
   end
   
   def non_email_fields_blank_upon_creation

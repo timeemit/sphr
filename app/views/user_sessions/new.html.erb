@@ -1,6 +1,6 @@
 <h2 style='margin:0px'>Login</h2>
 
-<%= form_for @user_session, :url => {:controller => "user_sessions", :action => "create"} do |f| %>
+<%= form_for @user_session, :url => {:controller => 'user_sessions', :action => 'create'} do |f| %>
   <% if @user_session.errors.any? %>
 		<%= render :partial => 'partials/errors', :locals => {:objects => [@user_session]}%>
 	<% end %>
@@ -16,7 +16,7 @@
 		<%= render :partial => 'partials/error_message', 
 			:locals => {:object => @user_session, :attribute => :password}%>
 	</p>
-  <%= f.submit "Login" %>
+  <%= f.submit 'Login' %>
 <% end %>
 
 <h2>Sign Up</h2>
@@ -36,5 +36,5 @@
 		<%= render :partial => 'partials/error_message', 
 			:locals => {:object => @user, :attribute => :email_confirmation}%>
 	</p>
-	<%= form.submit "Register" %>
+	<%= form.submit 'Register' %>
 <% end %>

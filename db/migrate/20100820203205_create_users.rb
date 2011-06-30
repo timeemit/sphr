@@ -4,12 +4,12 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :username,            :null => true                 # optional, you can use email instead, or both
       t.string    :email,               :null => false                # optional, you can use login instead, or both
       t.string    :distinction,         :null => true                 # A note to anyone that might be mystified by a username
+      t.boolean   :activated,           :null => false, :default => false
       t.string    :crypted_password,    :null => true                 # optional, see below
       t.string    :password_salt,       :null => true                 # optional, but highly recommended
       t.string    :persistence_token,   :null => false                # required
       t.string    :single_access_token, :null => false                # optional, see Authlogic::Session::Params
       t.string    :perishable_token,    :null => false                # optional, see Authlogic::Session::Perishability
-      t.boolean   :activated,           :null => false, :default => false
       t.timestamps                      :null => false
 
       # Magic columns, just like ActiveRecord's created_at and updated_at. These are automatically maintained by Authlogic if they are present.

@@ -37,12 +37,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      if @user.authenticated
+      if @user.activated
         flash[:notice] = 'Welcome to Sphr!'
         redirect_to user_shoutouts_path(@user)        
       else
         flash[:notice] = 'Thanks for signing up!'
-        render :action => :new, :layout => 'users'
+        render :action => :signup, :layout => 'users'
       end
     else
       render :action => :new, :layout => 'users'

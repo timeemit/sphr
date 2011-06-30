@@ -24,10 +24,11 @@
 	width:330px;
 	display:block;
 	float:left;
+	text-align:center; 
 }
 
-.slogan #left_header{text-align:center;}
-.slogan #right_header{text-align:center;}
+#left_header.slogan{border-bottom-left-radius:15px;}
+#right_header.slogan{border-bottom-right-radius:15px;}
 
 .green{color:limegreen;}
 
@@ -53,6 +54,18 @@
 
 #intro2, #intro1 .second_line{
 	text-align:left;
+}
+
+.number{
+	border-bottom:1px solid black;
+}
+
+#intro1 .number{
+	text-align:left; 
+}
+
+#intro2 .number{
+	text-align:right;
 }
 
 .second_line{

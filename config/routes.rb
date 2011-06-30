@@ -7,6 +7,9 @@ Sphr::Application.routes.draw do
   resources :rings, :only => [:create, :update, :destroy]
   match 'users/:id/authenticate/:perishable_token' => 'users#authenticate', :as => :authenticate
   resources :users, :except => [:show, :edit, :destroy] do |users|
+    member do
+      get 'signup'
+    end
     resources :shoutouts do |shoutouts|
       # resources :comments, :only => [:create, :update, :destroy]
     end
