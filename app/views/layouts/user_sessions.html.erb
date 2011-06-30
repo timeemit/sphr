@@ -35,54 +35,77 @@
 	<%= yield :head %>
 	
 </head>
-	
-<div id='supercontainer'>
-<div id='header'>
-	<span id='logo'><%= render :partial => 'layouts/logo' %></span>
-	<h2 id='slogan' style='border-top-left-radius:0px; border-bottom-left-radius:0px;'> 
-		because 
-		<span class='green'>friendship</span> 
-		shouldn't 
-		<span class='red'>sacrifice</span> 
-		<span class='blue'>privacy</span></h2>
-</div>	
 
+<body>	
+<div id='supercontainer'>
+
+<div id='header'>
+	<h2 class='slogan'> 
+		<div id='left_header'>
+			<span class='green'>Friendship</span> 
+			Shouldn't 
+		</div>
+	</h2>
+	<%= image_tag 'logo24.png', {:height => 80, :width => 120, :id => 'logo'} %>
+	<h2 class='slogan'>
+		<div id ='right_header'>
+			<span class='red'>Sacrifice</span> 
+			<span class='blue'>Privacy</span>
+		</div>
+	</h2>
+</div>	
 <div id='main'>
-	<% if flash[:notice].nil? %>
-		<br />
-	<% else %>		
-		<div id='flash'><%= flash[:notice] %></div>
-	<% end %>
-	
+	<br />
+	<div style='font-size:40px; text-align:center;'>
+		<strong class='green'>Sphr</strong> is a network <br />designed for
+		<em class='blue'><strong>privacy.</strong></em>
+	</div>
+	<div style='font-size:20px; text-align:center;'>
+		Control who sees your activity, personal information, <br /> 
+		and communications through two intuitive features.
+	</div>
+	<br />
+	<div id='intro1' class='col'>
+		1. <br />
+		Give <br />
+		friends <br />
+		distance with<br />
+		"rings"		
+		<div class='second_line'>
+			<span class='blue'>Closer</span> 
+			friends see more<br />
+			information than <br />
+			<span class='red'>farther</span>  
+			ones. <br />
+			Safety <br />
+			first!
+
+			<!-- <span class='red'>Farther</span> 
+			friends see less
+			information than <br />
+			<span class='blue'>closer</span> 
+			ones.  -->
+		</div>
+	</div>
 	<div id='fields' class='col'>
-		<br />
+		<% unless flash[:notice].nil? %>
+			<div id='flash'><%= flash[:notice] %></div>
+		<% end %>
 		<%= yield  %>
 	</div>
-	
-	<div id='intro' class='col'>
-		<span style='font-size:40px;'>
-			<strong class='green'>Sphr</strong> is a network designed for
-			<em class='blue'><strong>privacy</strong></em>.</span><br>
-		<div style='font-size:20px; text-align:right;'>
-			Control who sees your activity, <br/ >personal information, and communications <br /> 
-			through two intuitive features.
+	<div id='intro2' class='col'>
+		<div style='margin-left:5px;'>2.</div>
+		Place <br />
+		friends into <br /> 
+		groups called "cones" <br />
+		<div class='second_line', style='margin-left:20px;'>
+			Useful privacy controls are fully integrated <br />throughout your communication interfaces.
 		</div>
-		<ol style='font-size:30px;'>
-			<li>Assign friends distances by placing them into rings.  <br />
-				<div class='second_line'>
-					<span class='red'>Farther</span> friends see less <br />information than <span class='blue'>closer</span> ones. 
-				</div>
-			</li>
-			<li>Place friends into groups called "cones". <br />
-				<div class='second_line'>
-					Useful privacy controls are fully integrated <br />throughout your communication interfaces.
-				</div>
-			</li>
-		</ol>
 	</div>
 	
 </div>
 
 </div>
+
 </body>
 </html>

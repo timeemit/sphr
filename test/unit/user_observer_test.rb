@@ -41,5 +41,7 @@ class UserObserverTest < ActiveSupport::TestCase
     assert user.activities.size == 1, 'not just one activity for saved user'
     #This last assertion should be removed once Activities belong to only entitities.  Currently they also belong to rings, which is redundant.
     assert_same user.activities.last.entity, user.rings.find_by_number(ring_pref).profile, 'last (only) activity does not belong to public profile'
+    
+    assert user.activated, 'user is not activated after save'
   end
 end

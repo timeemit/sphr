@@ -1,13 +1,11 @@
 #tests for skeleton1 and skeleton2 are in user_test.rb
 def skeleton1
-  return User.new do |skelly|
-    skelly.username = 'NotBlank1'
-    skelly.email = 'a1@b.com'
-    skelly.email_confirmation = 'a1@b.com'
-    skelly.password = 'S1lly'
-    skelly.password_confirmation = 'S1lly'
-    skelly.distinction = 'Skeleton1'
-  end
+  user = User.create(:email => 'a1@b.com', :email_confirmation => 'a1@b.com')
+  user.username = 'NotBlank1'
+  user.password = 'S1lly'
+  user.password_confirmation = 'S1lly'
+  user.distinction = 'Skeleton1'
+  return user
 end
 def saved_skeleton1
   user = skeleton1
@@ -15,13 +13,12 @@ def saved_skeleton1
   return user
 end
 def skeleton2
-  return User.new(
-    :username => 'NotBlank2',
-    :email => 'a2@b.com',
-    :email_confirmation => 'a2@b.com',
-    :password => 'S1lly',
-    :password_confirmation => 'S1lly',
-    :distinction => 'Skeleton2')
+  user = User.create(:email => 'a2@b.com', :email_confirmation => 'a2@b.com')
+  user.username = 'NotBlank2'
+  user.password = 'S1lly'
+  user.password_confirmation = 'S1lly'
+  user.distinction = 'Skeleton2'
+  return user
 end
 def saved_skeleton2
   user = skeleton2
@@ -29,20 +26,18 @@ def saved_skeleton2
   return user
 end
 
-#tests for create_skeletons, create_skeleton_friendship, and create_skeleton_mutual_friendship
-#are in friendship_test.rb
-
 #Builds 'number' of users with username 'username' + index.  Returns all the new users in an array
 def build_skeletons(number, username)
   skelly_array = Array.new
   number.times do |index|
-    skelly_array << User.new(
-      :username => username + index.to_s,
-      :password => 'Sk3lly',
-      :password_confirmation => 'Sk3lly',
+    user = User.create(
       :email => username + index.to_s + '@frndsphr.com',
-      :email_confirmation => username + index.to_s + '@frndsphr.com',
-      :distinction => 'I am ' + username + index.to_s)
+      :email_confirmation => username + index.to_s + '@frndsphr.com')
+    user.username = username + index.to_s
+    user.password = 'Sk3lly'
+    user.password_confirmation = 'Sk3lly'
+    user.distinction = 'I am ' + username + index.to_s
+    skelly_array << user
   end
   return skelly_array
 end
@@ -95,3 +90,6 @@ def mutual_friendship_setup(ring_number)
   @friendship_forward = saved_skeleton_friendship(@user, @friend, ring_number)
   @friendship_backward = saved_skeleton_friendship(@friend, @user, ring_number)
 end
+
+#Tests for create_skeletons, create_skeleton_friendship, and create_skeleton_mutual_friendship
+# are in friendship_test.rb

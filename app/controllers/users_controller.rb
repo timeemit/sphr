@@ -1,8 +1,17 @@
 class UsersController < ApplicationController
-  layout 'application', :unless => [:new, :create]
-  before_filter :require_no_user, :only => [:new, :create]
+  layout 'application', :unless => [:new, :create, :authenticate]
+  before_filter :require_no_user, :only => [:new, :create, :authenticate]
   before_filter :require_user, :only => [:show, :edit, :update, :index, :destroy]
 
+  #GET /users/1/authenticate
+  # authenticate_user_path
+  def authenticate
+    @user = User.find(params[:id])
+    if @user.perishable_token == params[:perishable_token]
+      render :layout => 'users'
+    end
+  end
+  
   #GET /users
   def index
     @search = User.search(params[:search])
@@ -28,8 +37,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:notice] = "Account registered!"
-      redirect_to user_shoutouts_path(@user)
+      if @user.authenticated
+        flash[:notice] = 'Welcome to Sphr!'
+        redirect_to user_shoutouts_path(@user)        
+      else
+        flash[:notice] = 'Thanks for signing up!'
+        render :action => :new, :layout => 'users'
+      end
     else
       render :action => :new, :layout => 'users'
     end

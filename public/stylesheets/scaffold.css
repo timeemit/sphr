@@ -69,7 +69,7 @@ div.field, div.actions {
   overflow:hidden;
 }
 
-#main .col{
+#main .col, #header .col{
    position:relative;
    float:left;
 }
@@ -115,6 +115,7 @@ div.field, div.actions {
   margin-bottom: 0px;
   background-color: #c00;
   color: #fff;
+	border-radius: 0px;
 }
 
 #error_explanation ul li {

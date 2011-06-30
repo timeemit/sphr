@@ -1,10 +1,11 @@
 Sphr::Application.routes.draw do
   resource :user_session, :only => [:new, :create, :destroy]
   root :to => 'user_sessions#new'
-  # match 'user_sessions/new', :as => 'login'
+  match 'user_sessions/new', :as => 'login'
   # match 'user_sessions', :as => 'logout', :method => :delete
   # resources :activities, :only => :index
   resources :rings, :only => [:create, :update, :destroy]
+  match 'users/:id/authenticate/:perishable_token' => 'users#authenticate', :as => :authenticate
   resources :users, :except => [:show, :edit, :destroy] do |users|
     resources :shoutouts do |shoutouts|
       # resources :comments, :only => [:create, :update, :destroy]

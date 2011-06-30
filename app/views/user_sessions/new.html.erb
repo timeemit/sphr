@@ -19,41 +19,22 @@
   <%= f.submit "Login" %>
 <% end %>
 
-<h2>Register</h2>
+<h2>Sign Up</h2>
 
-<%= form_for @user do |form| %>
+<%= form_for @user, :url => {:controller => 'users', :action => 'create'} do |form| %>
 	<% if @user.errors.any? %>
 		<%= render :partial => 'partials/errors', :locals => {:objects => [@user]}%>
 	<% end %>
-	<p>
-		<%= form.label :username %><br />
-		<%= form.text_field :username %>
-		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :username}%>
-	</p>
-	<p>
-		<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
-		<%= form.password_field :password %>
-		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password}%>
-	</p>
-	<p>
-		<%= form.label :password_confirmation %><br />
-		<%= form.password_field :password_confirmation %>
-		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password_confirmation}%>
-	</p>
 	<p>
 		<%= form.label :email %><br />
 		<%= form.text_field :email %>
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email}%>
 	</p>
 	<p>
-		<%= form.label :email_confirmation %><br />
+		<%= form.label :email_confirmation, 'Email Confirmation' %><br />
 		<%= form.text_field :email_confirmation %>
-		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email_confirmation}%>
+		<%= render :partial => 'partials/error_message', 
+			:locals => {:object => @user, :attribute => :email_confirmation}%>
 	</p>
-	<p>
-		<%= form.label :distinction, 'ID Remark' %><br />
-		<%= form.text_field :distinction %>
-		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :distinctio}%>
-	</p>  
 	<%= form.submit "Register" %>
 <% end %>

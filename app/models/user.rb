@@ -10,8 +10,10 @@ class User < ActiveRecord::Base
   
   #The ring is the most unique aspect of this social network.
   #A user can assign friendships and profiles to rings so as to control what information each ring has.
+  #Accessed rings are the rings that the user has been placed in by his/her mutual_friends.
   has_many :rings, :dependent => :destroy
   has_one :public_ring, :class_name => 'Ring', :conditions => {:name => 'Public'}
+  has_many :accessed_rings, :through => :inverse_mutual_friendships, :source => :ring
   
   #The following four lines of code have been adapted from http://railscasts.com/episodes/163-self-referential-association
   #The friendship is at the core of the social network, and represents a connection between two users.
@@ -45,10 +47,7 @@ class User < ActiveRecord::Base
 
   #Inverse mutual friendships is useful for getting the profile information of inverse friends
   has_many :inverse_mutual_friendships, :class_name => 'Friendship', :foreign_key => 'friend_id', :conditions => {:mutual => true}, :dependent => :destroy
-  
-  #Accessed rings are the rings that the user has been placed in by his/her mutual_friends.
-  has_many :accessed_rings, :through => :inverse_mutual_friendships, :source => :ring
-  
+    
   #Not only can Users manage their friends into friendships, they also have cones of friends.
   #These are just groups of friends.  It gives the user greater control over his/her friends
   has_many :cones, :dependent => :destroy
@@ -59,9 +58,7 @@ class User < ActiveRecord::Base
 
   #Echoes repeat the message sent by a shoutout but but to a new user's friends.
   has_many :echoes, :through => :rings, :dependent => :destroy
-  
-  # has_many :created_shoutouts, :class_name => 'Shoutout', :conditions => {:user_id => self.primary_key}, :dependent => :destroy
-  
+    
   #Users can write comments on posts.
   has_many :comments, :dependent => :destroy
   
@@ -71,7 +68,7 @@ class User < ActiveRecord::Base
 
   #A user has multiple profiles to manage his(/her) appearance to each ring of friends
   has_many :profiles, :through => :rings, :dependent => :destroy
-  has_one :public_profile, :through => :public_ring, :source => :profile# , :conditions => 'ring_id =  + #{self.public_ring.id}' #Isn't working March 11 2011
+  has_one :public_profile, :through => :public_ring, :source => :profile
   #Could run a :finder_sql query that retrieves the viewable profiles of all of the user's mutual friends...would it be useful?
   
   #Currently, a User's Preference only describes the number of rings the user wishes to have.
@@ -81,31 +78,79 @@ class User < ActiveRecord::Base
     
   #Validations
 	
-	validates_presence_of :username, :password, :email, :distinction, :message => 'is a required field.'
-	validates_presence_of :email_confirmation, :password_confirmation, :message => 'was not present.'
-		
-	validates_uniqueness_of :username, :email, :message => 'has already been taken.'
-  validates_uniqueness_of :distinction, :message => 'in this exact writing has already been taken!  Please try something different.'
+	validate :non_email_fields_blank_upon_creation, :on => :create
 	
-	validates_confirmation_of :email, :password, :message => 'did not match confirmation.'
+	validates :username,
+	            :presence => true,
+	            :uniqueness => true,
+	            :length => {:within => 4..20},
+	            :format => {
+	              :with => /^[a-z0-9]+$/i,
+            		:message => "must consist of only alphanumeric characters."
+            	},
+            	:on => :update
+	            
+  validates :password,
+              :presence => true,
+              :confirmation => true,
+              :length => {:within => 5..30},
+              :format => {
+                :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
+            		:message => "must have at leaset one lowercase letter, one uppercase letter, and one number."
+              },
+              :on => :update
+  
+  validates :password_confirmation, #Probably unnecessary, since :confirmation => true is written
+              :presence => true,
+              :on => :update
+  
+  validates :email,
+              :presence => true,
+	            :uniqueness => true,
+	            :confirmation => true,
+	            :format => {
+	              :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+            		:message => "addresses begin with alphanumeric characters, followed by an @ sign, 
+                  followed by a period delimited server name."
+	            }
+  
+  validates :email_confirmation, #Probably unnecessary, since :confirmation => true is written
+              :presence => true
+              
+  validates :distinction,
+              :presence => true,
+              :length => {:maximum => 200},
+              :uniqueness => { #Quite unnecessary
+                :message => 'in this exact writing has already been taken!  
+                  Please try something slightly different.'
+              },
+              :on => :update
+	
+  # validates_presence_of :username, :password, :email, :distinction, :message => 'is a required field.'
+  # validates_presence_of :email_confirmation, :password_confirmation, :message => 'was not present.'
+		
+  # validates_uniqueness_of :username, :email, :message => 'has already been taken.'
+  #   validates_uniqueness_of :distinction, :message => 'in this exact writing has already been taken!  Please try something different.'
+	
+  # validates_confirmation_of :email, :password, :message => 'did not match confirmation.'
 
-	validates_length_of :username, :within => 4..20
-	validates_length_of :password, :within => 5..30
+  # validates_length_of :username, :within => 4..20
+  # validates_length_of :password, :within => 5..30
 	
-	#Requires Usernames to consist of of only punctuated alphanumeric characters
-	validates_format_of :username, :with => /^[a-z0-9]+$/i,
-		:message => "must consist of only alphanumeric characters."
-		
-	#Requires Passwords to consist of at least one number,
-	#one uppercase character, and one lower case character
-	validates_format_of :password, :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
-		:message => "must have at leaset one lowercase letter, one uppercase letter, and one number."	
-		
-	#Requires Email to begin with include any word character, ".", "%", "_", "+", or "-" before the "@" 
-	#followed by a word character, ".",
-	validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-		:message => "addresses begin with alphanumeric characters, followed by an @ sign, 
-      followed by a period delimited server name."
+  # #Requires Usernames to consist of of only punctuated alphanumeric characters
+  # validates_format_of :username, :with => /^[a-z0-9]+$/i,
+  #   :message => "must consist of only alphanumeric characters."
+  #   
+  # #Requires Passwords to consist of at least one number,
+  # #one uppercase character, and one lower case character
+  # validates_format_of :password, :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
+  #   :message => "must have at leaset one lowercase letter, one uppercase letter, and one number." 
+  #   
+  # #Requires Email to begin with include any word character, ".", "%", "_", "+", or "-" before the "@" 
+  # #followed by a word character, ".",
+  # validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+  #   :message => "addresses begin with alphanumeric characters, followed by an @ sign, 
+  #       followed by a period delimited server name."
 	
   
   #Methods
@@ -299,6 +344,16 @@ class User < ActiveRecord::Base
 
   private
 
-  acts_as_authentic  
+  acts_as_authentic do |config|
+    config.validate_login_field = false
+    config.validate_password_field = false
+  end
+  
+  def non_email_fields_blank_upon_creation
+    self.username.blank? ? nil : self.errors.add(:username, 'must be blank')
+    self.password.blank? ? nil : self.errors.add(:password, 'must be blank')
+    self.password_confirmation.blank? ? nil : self.errors.add(:password_confirmation, 'must be blank')
+    self.distinction.blank? ? nil : self.errors.add(:distinction, 'must be blank')
+  end
   
 end

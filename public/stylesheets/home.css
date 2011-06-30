@@ -1,3 +1,5 @@
+#flash {text-align:center;}
+
 #header{
 	width:800px;
 	background:black;
@@ -13,15 +15,19 @@
 	border-right:10px solid black;
 }
 
-#slogan{
+.slogan{
+	border-radius:0px;
 	padding:0px;
 	padding-top:25px;
 	margin:0px;
 	height:60px;
-	width:660px;
+	width:330px;
 	display:block;
 	float:left;
 }
+
+.slogan #left_header{text-align:center;}
+.slogan #right_header{text-align:center;}
 
 .green{color:limegreen;}
 
@@ -31,18 +37,25 @@
 
 #fields{
 	width:250px;
+	text-align:center;
+}
+
+#fields input{text-align:center;}
+
+#intro1, #intro2{
+	width:275px;
+	font-size:30px;
+}
+
+#intro1, #intro2 .second_line{
 	text-align:right;
 }
 
-#fields input{text-align:right;}
-
-#intro{
-	width:530px;
-	margin-left:20px;
+#intro2, #intro1 .second_line{
+	text-align:left;
 }
 
 .second_line{
 	font-size:20px; 
-	text-align:right;
 	font-style:italic;
 }
