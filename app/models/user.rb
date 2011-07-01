@@ -4,7 +4,12 @@
 #The user model contains a username, password, email, and a distinction that helps other people identify who they are.
 #The user is related to other users via friendships, which he/she can organize into rings and cones.
 class User < ActiveRecord::Base
-  attr_accessible :username, :password, :password_confirmation, :email, :email_confirmation, :distinction
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  attr_accessible :username, :password, :password_confirmation, :email, :email_confirmation, :distinction, :remember_me
   
   #Associations
   
@@ -343,12 +348,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  acts_as_authentic do |config|
-    config.validate_login_field = false
-    config.validate_password_field = false
-    config.validate_email_field = false
-  end
   
   def non_email_fields_blank_upon_creation
     self.username.blank? ? nil : self.errors.add(:username, 'must be blank')

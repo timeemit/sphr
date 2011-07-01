@@ -18,6 +18,7 @@
 <div id='supercontainer'>	
 <div id='header'>
 </div>	
+<% if user_signed_in? %>
 <div id='main', class='container'>
 	<div id='navigation', class='col'>
 		<%= image_tag 'logo23.png', {:height => 80, :width => 120} %>		
@@ -41,7 +42,7 @@
 	</div>
 	
 </div>
-
+<% end %>
 </div>
 
 </body>

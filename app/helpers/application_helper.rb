@@ -12,8 +12,8 @@ module ApplicationHelper
   end
   
   #Returns a hex color code that represents how close the given ring is with respect to the public ring.
-  #Red is close, blue is cold?
   def color_for_ring(ring, public_ring)
+    #Red is close, blue is cold?
     #This was moved into the model.
   end
   
@@ -40,4 +40,13 @@ module ApplicationHelper
       (hrs < 24 ? (pluralize(hrs.to_s, 'hour') ) : (pluralize(hrs.divmod(24).first, 'day')))} ago"
     return time
   end
+
+  #Returns a summary of errors found in the form, if any exist.
+  def error_summary(object)
+    string = '<% if object.errors.any? %>'
+  	string <<	"<%= render :partial => 'partials/errors', :locals => {:objects => [object]}%>"
+  	string << '<% end %>'
+  	return string
+  end
+	
 end
