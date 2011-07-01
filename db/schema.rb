@@ -119,13 +119,6 @@ ActiveRecord::Schema.define(:version => 20110622035150) do
     t.string   "username"
     t.string   "distinction"
     t.boolean  "activated",                             :default => false, :null => false
-    t.string   "crypted_password"
-    t.string   "password_salt"
-    t.string   "persistence_token",                                        :null => false
-    t.string   "single_access_token",                                      :null => false
-    t.string   "perishable_token",                                         :null => false
-    t.datetime "created_at",                                               :null => false
-    t.datetime "updated_at",                                               :null => false
     t.string   "email",                                 :default => "",    :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
@@ -136,6 +129,8 @@ ActiveRecord::Schema.define(:version => 20110622035150) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
