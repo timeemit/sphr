@@ -1,4 +1,4 @@
-<% content_for :head do %>
+™<% content_for :head do %>
 	<%= stylesheet_link_tag 'home' %>
 <% end %>
 
@@ -44,6 +44,7 @@
 		<% unless flash[:notice].nil? %>
 			<div id='flash'><%= flash[:notice] %></div>
 		<% end %>
+		<%= link_to "Sign in", new_user_session_path %>
 		<%= render :partial => 'partials/sign_in', :locals => {:user => @user} %>
 		<%= render :partial => 'partials/sign_up', :locals => {:user => @user} %>
 	</div>

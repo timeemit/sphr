@@ -1,0 +1,29 @@
+<h1>Welcome!</h1>
+
+<%= form_for @user do |form| %>
+	<% if @user.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [@user]}%>
+	<% end %>
+	<p>
+		<%= form.label :username %><br />
+		<%= form.text_field :username %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :username}%>
+	</p>
+	<p>
+		<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
+		<%= form.password_field :password %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password}%>
+	</p>
+	<p>
+		<%= form.label :password_confirmation %><br />
+		<%= form.password_field :password_confirmation %>
+		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password_confirmation}%>
+	</p>
+	<%= form.hidden_field :email %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email}%>
+	<%= form.hidden_field :confirmation_token %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :confirmation_token}%>
+	
+	
+	<%= form.submit "Register" %>
+<% end %>

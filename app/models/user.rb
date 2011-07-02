@@ -6,11 +6,12 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable,  :lockable, :timeoutable and :omniauthable
-  devise :confirmable, :database_authenticatable
+  devise :database_authenticatable, :confirmable
     # :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :username, :encrypted_password, :email, :email_confirmation, :distinction, :remember_me
-  attr_accessor :password, :password_confirmation
+  attr_accessible :username, :email, :email_confirmation, :distinction
+  # attr_accessor :password, :password_confirmation
+  attr_accessible :encrypted_password, :confirmation_token, :confirmed_at, :confirmation_sent_at# :remember_me
   
   #Associations
   
@@ -84,28 +85,26 @@ class User < ActiveRecord::Base
     
   #Validations
 	
-  # validate :non_email_fields_blank_upon_creation, :on => :create
+  validate :non_email_fields_blank_upon_creation, :on => :create
+	
+  validate :account_confirmed, :on => :update
 	
 	validates :username,
-	            :presence => {:on => :update},
+	            :presence => true,
 	            :uniqueness => true,
 	            :length => {:within => 4..20},
-	            :format => {
-	              :with => /^[a-z0-9]+$/i,
-            		:message => "must consist of only alphanumeric characters."
-            	}
+	            :format => {:with => /^[a-z0-9]+$/i, :message => "must consist of only alphanumeric characters."},
+	            :on => :update
 	            
   validates :password,
-              :presence => {:on => :update},
+              :presence => true,
               :confirmation => true,
               :length => {:within => 5..30},
-              :format => {
-                :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
-            		:message => "must have at leaset one lowercase letter, one uppercase letter, and one number."
-              }
+              :format => {:with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/, :message => "must have at leaset one lowercase letter, one uppercase letter, and one number."},
+              :on => :update
   
-  validates :password_confirmation, #Probably unnecessary, since :confirmation => true is written
-              :presence => {:on => :update}
+  # validates :password_confirmation, #Probably unnecessary, since :confirmation => true is written
+  #             :presence => {:on => :update}
   
   validates :email,
               :presence => true,
@@ -117,8 +116,8 @@ class User < ActiveRecord::Base
                   with a period delimited server name."
 	            }
   
-  validates :email_confirmation, #Probably unnecessary, since :confirmation => true is written
-              :presence => true
+  # validates :email_confirmation, #Probably unnecessary, since :confirmation => true is written
+  #             :presence => true
               
   validates :distinction,
               :length => {:maximum => 200}	
@@ -319,6 +318,14 @@ class User < ActiveRecord::Base
     self.password.blank? ? nil : self.errors.add(:password, 'must be blank')
     self.password_confirmation.blank? ? nil : self.errors.add(:password_confirmation, 'must be blank')
     self.distinction.blank? ? nil : self.errors.add(:distinction, 'must be blank')
+  end
+  
+  def account_confirmed
+    unless self.confirmed?
+      self.errors.add(:username, 'cannot be changed until account is confirmed.')
+      self.errors.add(:password, 'cannot be changed until account is confirmed.')
+      self.errors.add(:distinction, 'cannot be changed until account is confirmed.')
+    end
   end
   
 end

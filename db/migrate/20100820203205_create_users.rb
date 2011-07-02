@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :username,            :null => true
       t.string    :email,               :null => false                # Devise makes this an index, which I don't know anything about
       t.string    :distinction,         :null => true                 # A note to anyone that might be mystified by a username
-      t.boolean   :activated,           :null => false, :default => false
+      # t.boolean   :activated,           :null => false, :default => false # Devise handles confirmed with confirmed?.
       
       # Devise methods
       t.database_authenticatable :null => false
@@ -37,7 +37,7 @@ class CreateUsers < ActiveRecord::Migration
       # t.string    :last_login_ip                                      # optional, see Authlogic::Session::MagicColumns
     end
     # More Deivse methods
-    # add_index :users, :email,                :unique => true
+    add_index :users, :email,                :unique => true
     # add_index :users, :reset_password_token, :unique => true
     add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true

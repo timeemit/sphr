@@ -5,14 +5,11 @@ Sphr::Application.routes.draw do
   # root :to => 'user_sessions#new'
   # match 'user_sessions/new', :as => 'login'
   # match 'user_sessions', :as => 'logout', :method => :delete
-  # match 'users/:id/authenticate/:perishable_token' => 'users#authenticate', :as => :authenticate
-  
   # resources :activities, :only => :index
+  match 'users/:id/confirm/:confirmation_token' => 'users#confirmation', :as => :user_confirmation  
   resources :rings, :only => [:create, :update, :destroy]
   resources :users, :except => [:show, :edit, :destroy] do |users|
-    # member do
-    #   get 'signup'
-    # end
+    post 'confirm', :on => :member
     resources :shoutouts do |shoutouts|
       # resources :comments, :only => [:create, :update, :destroy]
     end

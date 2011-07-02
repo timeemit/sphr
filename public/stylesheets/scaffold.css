@@ -118,6 +118,8 @@ div.field, div.actions {
 	border-radius: 0px;
 }
 
+#error_explanation h2{display:none;} /*Hack to edit the Devise error message*/
+
 #error_explanation ul li {
   font-size: 12px;
   list-style: &raquo;

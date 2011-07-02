@@ -1,18 +1,28 @@
 require 'test_helper'
 require 'generators'
 
-# 1 errors as of June 29th, 2011    
-#   test_validates_presence_of_password(UserTest) [unit/user_test.rb:23]:
-# empty password saved
+# 1 errors as of July 1rst, 2011    
+# test_skeletons_1_and_2_validity(UserTest):
+# ActiveRecord::RecordNotUnique: Mysql2::Error: 
+# Duplicate entry 'a1@b.com' for key 'index_users_on_email': 
+# INSERT INTO `users` 
+# (`username`, `email`, `distinction`, `encrypted_password`, 
+# `confirmation_token`, `confirmed_at`, `confirmation_sent_at`, `created_at`, `updated_at`) 
+# VALUES (NULL, 'a1@b.com', NULL, '', NULL, '2011-07-02 06:42:20', NULL, '2011-07-02 06:42:20', '2011-07-02 06:42:20')
+# 
+# Traces back to 
+# /Developer/Products/sphr/test/generators.rb:4:in `skeleton1'
 
 class UserTest < ActiveSupport::TestCase
   test 'create user with only email address' do
     user = User.new(:email => 'a1@b.com', :email_confirmation => 'a1@b.com')
     assert user.save, "error messages: #{user.errors.full_messages}"
   end
-  test 'skeletons 1 & 2 validity' do
-    assert skeleton1.save, "skeleton1 was unable to save, errors: #{skeleton1.errors.full_messages}"
-    assert skeleton2.save, 'skeleton2 was unable to save'
+  test 'skeletons 1 and 2 validity' do
+    user = skeleton1
+    assert user.save, "skeleton1 was unable to save, errors: #{skeleton1.errors.full_messages}"
+    user = skeleton2
+    assert user.save, 'skeleton2 was unable to save'
   end
   test 'skeleton build' do
     #Creates a random number (10) of 'skelly' users 1 time.
@@ -37,6 +47,21 @@ class UserTest < ActiveSupport::TestCase
       skellies = nil
     end
   end
+  test 'confirmed and validates account confirmed' do
+    user = User.new(:email => 'a1@b.com', :email_confirmation => 'a1@b.com')
+    assert user.save, 'user was not created'
+    assert !user.confirmed?, 'skeleton1 is confirmed before save'
+    assert !user.save, "user could save without confirmation"
+    user.confirm!
+    assert user.confirmed?, 'user is not confirmed after being told to be so'
+    
+    user.username = 'NotBlank2'
+    user.password = 'S1lly'
+    user.password_confirmation = 'S1lly'
+    user.distinction = 'Skeleton2'
+    
+    assert user.save, 'user could not save after bein confirmed'
+  end
   
   test 'validates against blank user' do 
     assert !User.new.save, 'Blank User Created'
@@ -58,26 +83,12 @@ class UserTest < ActiveSupport::TestCase
     assert user.password == nil, "password is stil #{user.password}"
     assert !user.save, 'nil password saved'
   end
-  test 'validates presence of password confirmation' do
-    user = skeleton1
-    user.password_confirmation = ''
-    assert !user.save, 'empty password confirmation saved'
-    user.password_confirmation = nil
-    assert !user.save, 'nil password confirmation saved'
-  end
   test 'validates presence of email' do
     user = skeleton1
     user.email = ''
     assert !user.save, 'empty email saved'
     user.email = nil
     assert !user.save, 'nil email saved'
-  end
-  test 'validates presence of email confirmation' do  
-    user = skeleton1
-    user.email_confirmation = ''
-    assert !user.save, 'empty email confrmation saved'
-    user.email_confirmation = nil
-    assert !user.save, 'nil email confirmation saved'
   end
   test 'validates uniqueness of username' do
     user1 = skeleton1
@@ -174,11 +185,11 @@ class UserTest < ActiveSupport::TestCase
     assert user.rings.empty?, 'nonempty ring array before save'
     assert user.shoutouts.empty?, 'nonempty shoutouts array before save'
     
-    assert !user.activated, 'user is marked as activated before save'
+    # assert !user.activated, 'user is marked as activated before save'  #DEPRECATED
   end
   test 'creates user with capital email' do
     user = User.new(:email=>'F@1.com', :email_confirmation=>'F@1.com')
-    assert user.save, "Errors: #{user.errors.full_messages}"
+    assert user.save, "user.email: #{user.email}\nuser.email_confirmation: #{user.email_confirmation}\nErrors: #{user.errors.full_messages}"
   end
 
   #WRTIE THESE TESTS!!!
@@ -209,6 +220,22 @@ class UserTest < ActiveSupport::TestCase
   #   assert !user.save, 'empty distinction saved'
   #   user.distinction = nil
   #   assert !user.save, 'nil distinction saved'
+  # end
+  # test 'validates presence of password confirmation' do
+  # DEPRECATED
+  #   user = skeleton1
+  #   user.password_confirmation = ''
+  #   assert !user.save, 'empty password confirmation saved'
+  #   user.password_confirmation = nil
+  #   assert !user.save, 'nil password confirmation saved'
+  # end
+  # test 'validates presence of email confirmation' do  
+  # DEPRECATED
+  #   user = skeleton1
+  #   user.email_confirmation = ''
+  #   assert !user.save, 'empty email confrmation saved'
+  #   user.email_confirmation = nil
+  #   assert !user.save, 'nil email confirmation saved'
   # end
 
 end

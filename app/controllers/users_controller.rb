@@ -9,15 +9,6 @@ class UsersController < ApplicationController
     @user = User.new
     render :layout => 'users'
   end
-
-  #GET /users/1/authenticate
-  # authenticate_user_path
-  def authenticate
-    @user = User.find(params[:id])
-    if @user.perishable_token == params[:perishable_token]
-      render :layout => 'users'
-    end
-  end
   
   #GET /users
   def index
@@ -40,25 +31,51 @@ class UsersController < ApplicationController
     @user = @current_user
   end
   
+  #GET /users/:id/confirm/:confirmation_token
+  def confirmation
+    @user = User.find(params[:id])
+    if @user.confirmation_token = params[:confirmation_token]
+      flash[:notice] = 'Welcome! \n Fill out the form to complete the confirmation of your account.'
+      render :layout => 'users'
+    else
+      flash[:notie] = 'You must confirm and sign in to edit your account.'
+      redirect_to :action => :home, :layout => 'users'
+    end
+  end
+  
+  #POST /users/:id/confirm
+  def confirm
+    @user = User.find(params[:id])
+    if @user.confirmation_token = params[:confirmation_token]
+      @user.confirm! unless @user.confirmed?
+      if @user.confirmed? and @user.update_attributes(params[:user])
+        flash[:notice] = 'Account successfully confirmed and updated!'
+        # Login the user.
+      else
+        flash[:notice] = 'An error has prevented us from confirming and updating your account'
+        redirect_to :action => :confirmation, :layout => 'users'
+      end
+    else
+      flash[:notice] = 'You must confirm and sign in to edit your account.'
+      redirect_to :action => :home, :layout => 'users'
+    end
+  end
+  
   #POST /users
   def create
     @user = User.new(params[:user])
     if @user.save
-      if @user.activated
-        flash[:notice] = 'Welcome to Sphr!'
-        redirect_to user_shoutouts_path(@user)        
-      else
-        flash[:notice] = 'Thanks for signing up!'
-        render :action => :signup, :layout => 'users'
-      end
+      flash[:notice] = 'Thanks for signing up!'
+      @user.send_confirmation_instructions
+      render :layout => 'users'
     else
-      render :action => :new, :layout => 'users'
+      redirect_to new_user_confirmation_path#, :layout => 'users'
     end
   end
   
   #POST /users/1
   def update
-    @user = @current_user # makes our views "cleaner" and more consistent
+    @user = User.find(params[:user]) # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       redirect_to user_posts_path(current_user)

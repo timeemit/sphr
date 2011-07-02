@@ -9,7 +9,11 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 module Sphr
   class Application < Rails::Application
     config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-    
+    config.to_prepare { 
+      Devise::ConfirmationsController.layout "users" 
+      Devise::SessionsController.layout "users"      
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
