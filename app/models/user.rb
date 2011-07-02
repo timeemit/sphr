@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :confirmable
     # :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :username, :email, :email_confirmation, :distinction
-  # attr_accessor :password, :password_confirmation
+  attr_accessible :username, :email, :email_confirmation, :distinction, :password, :password_confirmation
+  # attr_accessor 
   attr_accessible :encrypted_password, :confirmation_token, :confirmed_at, :confirmation_sent_at# :remember_me
   
   #Associations
@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
               :presence => true,
               :confirmation => true,
               :length => {:within => 5..30},
-              :format => {:with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/, :message => "must have at leaset one lowercase letter, one uppercase letter, and one number."},
+              :format => {:with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/, :message => "must have at least one lowercase letter, one uppercase letter, and one number."},
               :on => :update
   
   # validates :password_confirmation, #Probably unnecessary, since :confirmation => true is written

@@ -43,21 +43,27 @@ class UsersController < ApplicationController
     end
   end
   
+  #GET /users/:id/parallax
+  def parallax
+    @user = User.find(params[:id])
+    render :layout => 'users'
+  end
+  
   #POST /users/:id/confirm
   def confirm
     @user = User.find(params[:id])
-    if @user.confirmation_token = params[:confirmation_token]
-      @user.confirm! unless @user.confirmed?
-      if @user.confirmed? and @user.update_attributes(params[:user])
-        flash[:notice] = 'Account successfully confirmed and updated!'
-        # Login the user.
-      else
-        flash[:notice] = 'An error has prevented us from confirming and updating your account'
-        redirect_to :action => :confirmation, :layout => 'users'
-      end
-    else
-      flash[:notice] = 'You must confirm and sign in to edit your account.'
+    unless @user.confirmation_token = params[:user][:confirmation_token]
+      # Confirmation may have expired.  User needs to be redirected to a request new confirmation instructions path.
+      flash[:notice] = 'You must signup to confirm your account.'
       redirect_to :action => :home, :layout => 'users'
+    end
+    @user.confirm! unless @user.confirmed?
+    if @user.confirmed? and @user.update_attributes(params[:user])
+      flash[:notice] = 'Account successfully confirmed and updated!'
+      redirect_to :action => :home# , :layout => 'users'
+    else
+      flash[:notice] = 'An error has prevented the confirmation of your account'
+      render :action => :confirmation, :layout => 'users'
     end
   end
   
@@ -67,9 +73,10 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = 'Thanks for signing up!'
       @user.send_confirmation_instructions
-      render :layout => 'users'
+      redirect_to :parallax, :layout => 'users'
     else
-      redirect_to new_user_confirmation_path#, :layout => 'users'
+      flash[:notice] = 'Could not save email address.'
+      render :action => :new, :layout => 'users'
     end
   end
   

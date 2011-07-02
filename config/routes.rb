@@ -6,10 +6,11 @@ Sphr::Application.routes.draw do
   # match 'user_sessions/new', :as => 'login'
   # match 'user_sessions', :as => 'logout', :method => :delete
   # resources :activities, :only => :index
-  match 'users/:id/confirm/:confirmation_token' => 'users#confirmation', :as => :user_confirmation  
+  get 'users/:id/confirm/:confirmation_token' => 'users#confirmation', :as => :user_confirmation  
   resources :rings, :only => [:create, :update, :destroy]
-  resources :users, :except => [:show, :edit, :destroy] do |users|
-    post 'confirm', :on => :member
+  resources :users do |users|# , :except => [:show, :edit, :destroy]
+    post 'confirm', :on => :member, :as => :confirm
+    get 'parallax', :on => :member
     resources :shoutouts do |shoutouts|
       # resources :comments, :only => [:create, :update, :destroy]
     end

@@ -3,5 +3,5 @@
 <p>You can confirm your account through the link below:</p>
 
 <!-- Should write a conditional statement so that Devise sends the following line if @resource is not a user model. -->
-<!-- <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p> -->
-<p><%= link_to 'Confirm my account', edit_user_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<!-- <p>%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %</p> -->
+<p><%= link_to 'Confirm my account', "users/#{@resource.id}/confirm/#{@resource.confirmation_token}" %></p>

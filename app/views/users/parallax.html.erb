@@ -1,0 +1,3 @@
+<h1>Thanks for signing up!</h1>
+
+<%= link_to 'Confirm my account', "http://localhost:3000/users/#{@user.id}/confirm/#{@user.confirmation_token}" %>

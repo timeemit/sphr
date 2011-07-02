@@ -57,10 +57,14 @@ class UserTest < ActiveSupport::TestCase
     
     user.username = 'NotBlank2'
     user.password = 'S1lly'
-    user.password_confirmation = 'S1lly'
+    user.password_confirmation = 'S2lly'
     user.distinction = 'Skeleton2'
     
-    assert user.save, 'user could not save after bein confirmed'
+    assert !user.save, 'user saved with error after being confirmed'
+    
+    user.password_confirmation = 'S1lly'
+    
+    assert user.save, 'user could not save after being confirmed when valid'
   end
   
   test 'validates against blank user' do 
