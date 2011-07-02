@@ -15,10 +15,10 @@ class UserTest < ActiveSupport::TestCase
     assert skeleton2.save, 'skeleton2 was unable to save'
   end
   test 'skeleton build' do
-    #Creates a random number (50) of 'skelly' users 1 time.
+    #Creates a random number (10) of 'skelly' users 1 time.
     #Checks the attributes of each skelly, making sure they have rings and no friendships
     1.times do |j|
-      number = 50
+      number = 10
       name = String.new('skelly')  #It would be better if this were a string of random length and value.
       skellies = build_skeletons(number, j.to_s + name)
       assert !skellies.empty?, 'empty skellies array'
@@ -79,13 +79,6 @@ class UserTest < ActiveSupport::TestCase
     user.email_confirmation = nil
     assert !user.save, 'nil email confirmation saved'
   end
-  test 'validates presence of distinction' do
-    user = skeleton1
-    user.distinction = ''
-    assert !user.save, 'empty distinction saved'
-    user.distinction = nil
-    assert !user.save, 'nil distinction saved'
-  end
   test 'validates uniqueness of username' do
     user1 = skeleton1
     user2 = skeleton2
@@ -103,13 +96,6 @@ class UserTest < ActiveSupport::TestCase
     assert user1.email == user1.email_confirmation, 'user1 email and email confirmation are not equal'
     assert user1.save, 'user1 did not save'
     assert !user2.save, 'user2 saved'
-  end
-  test 'validates uniqueness of distinction' do
-    user1 = skeleton1
-    user2 = skeleton2
-    user1.distinction = user2.distinction
-    user1.save
-    assert !user2.save
   end
   test 'validates confirmation of password' do
     user = skeleton1
@@ -190,6 +176,10 @@ class UserTest < ActiveSupport::TestCase
     
     assert !user.activated, 'user is marked as activated before save'
   end
+  test 'creates user with capital email' do
+    user = User.new(:email=>'F@1.com', :email_confirmation=>'F@1.com')
+    assert user.save, "Errors: #{user.errors.full_messages}"
+  end
 
   #WRTIE THESE TESTS!!!
   test 'validates format of username' do #test UNWRITTEN!
@@ -203,4 +193,22 @@ class UserTest < ActiveSupport::TestCase
   end
   test 'valdiates length of distinction' do
   end
+
+  # test 'validates uniqueness of distinction' do
+  # Deprecated.
+  #   user1 = skeleton1
+  #   user2 = skeleton2
+  #   user1.distinction = user2.distinction
+  #   user1.save
+  #   assert !user2.save
+  # end
+  # test 'validates presence of distinction' do
+  # Deprecated
+  #   user = skeleton1
+  #   user.distinction = ''
+  #   assert !user.save, 'empty distinction saved'
+  #   user.distinction = nil
+  #   assert !user.save, 'nil distinction saved'
+  # end
+
 end

@@ -1,8 +1,8 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.string    :username,            :null => true                 # optional, you can use email instead, or both
-      # t.string    :email,               :null => false                # optional, you can use login instead, or both
+      t.string    :username,            :null => true
+      t.string    :email,               :null => false                # Devise makes this an index, which I don't know anything about
       t.string    :distinction,         :null => true                 # A note to anyone that might be mystified by a username
       t.boolean   :activated,           :null => false, :default => false
       
@@ -14,8 +14,9 @@ class CreateUsers < ActiveRecord::Migration
       # t.encryptable
       t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
-      t.token_authenticatable
+      # t.token_authenticatable
 
+      # t.confirmation_token # Devise makes this an index, which I don't know anything about
       t.timestamps                      :null => false
 
 
@@ -36,7 +37,7 @@ class CreateUsers < ActiveRecord::Migration
       # t.string    :last_login_ip                                      # optional, see Authlogic::Session::MagicColumns
     end
     # More Deivse methods
-    add_index :users, :email,                :unique => true
+    # add_index :users, :email,                :unique => true
     # add_index :users, :reset_password_token, :unique => true
     add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true

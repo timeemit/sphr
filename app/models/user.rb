@@ -5,14 +5,12 @@
 #The user is related to other users via friendships, which he/she can organize into rings and cones.
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable
+  # :token_authenticatable, :encryptable,  :lockable, :timeoutable and :omniauthable
+  devise :confirmable, :database_authenticatable
     # :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :username
-  attr_accessible :password, :password_confirmation, :encrypted_password
-  attr_accessible :email, :email_confirmation, :distinction
-  attr_accessible :remember_me
+  attr_accessible :username, :encrypted_password, :email, :email_confirmation, :distinction, :remember_me
+  attr_accessor :password, :password_confirmation
   
   #Associations
   
@@ -86,31 +84,28 @@ class User < ActiveRecord::Base
     
   #Validations
 	
-	validate :non_email_fields_blank_upon_creation, :on => :create
+  # validate :non_email_fields_blank_upon_creation, :on => :create
 	
 	validates :username,
-	            :presence => true,
+	            :presence => {:on => :update},
 	            :uniqueness => true,
 	            :length => {:within => 4..20},
 	            :format => {
 	              :with => /^[a-z0-9]+$/i,
             		:message => "must consist of only alphanumeric characters."
-            	},
-            	:on => :update
+            	}
 	            
   validates :password,
-              :presence => true,
+              :presence => {:on => :update},
               :confirmation => true,
               :length => {:within => 5..30},
               :format => {
                 :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
             		:message => "must have at leaset one lowercase letter, one uppercase letter, and one number."
-              },
-              :on => :update
+              }
   
   validates :password_confirmation, #Probably unnecessary, since :confirmation => true is written
-              :presence => true,
-              :on => :update
+              :presence => {:on => :update}
   
   validates :email,
               :presence => true,
@@ -126,40 +121,7 @@ class User < ActiveRecord::Base
               :presence => true
               
   validates :distinction,
-              :presence => true,
-              :length => {:maximum => 200},
-              :uniqueness => { #Quite unnecessary
-                :message => 'in this exact writing has already been taken!  
-                  Please try something slightly different.'
-              },
-              :on => :update
-	
-  # validates_presence_of :username, :password, :email, :distinction, :message => 'is a required field.'
-  # validates_presence_of :email_confirmation, :password_confirmation, :message => 'was not present.'
-		
-  # validates_uniqueness_of :username, :email, :message => 'has already been taken.'
-  #   validates_uniqueness_of :distinction, :message => 'in this exact writing has already been taken!  Please try something different.'
-	
-  # validates_confirmation_of :email, :password, :message => 'did not match confirmation.'
-
-  # validates_length_of :username, :within => 4..20
-  # validates_length_of :password, :within => 5..30
-	
-  # #Requires Usernames to consist of of only punctuated alphanumeric characters
-  # validates_format_of :username, :with => /^[a-z0-9]+$/i,
-  #   :message => "must consist of only alphanumeric characters."
-  #   
-  # #Requires Passwords to consist of at least one number,
-  # #one uppercase character, and one lower case character
-  # validates_format_of :password, :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
-  #   :message => "must have at leaset one lowercase letter, one uppercase letter, and one number." 
-  #   
-  # #Requires Email to begin with include any word character, ".", "%", "_", "+", or "-" before the "@" 
-  # #followed by a word character, ".",
-  # validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-  #   :message => "addresses begin with alphanumeric characters, followed by an @ sign, 
-  #       followed by a period delimited server name."
-	
+              :length => {:maximum => 200}	
   
   #Methods
 	
