@@ -34,7 +34,7 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [ :email ]
+  config.case_insensitive_keys = [ :email, :email_confirmation ]
   
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
@@ -45,13 +45,13 @@ Devise.setup do |config|
   # config.params_authenticatable = true
 
   # Tell if authentication through HTTP Basic Auth is enabled. False by default.
-  # config.http_authenticatable = false
+  config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
-  # config.http_authenticatable_on_xhr = true
+  config.http_authenticatable_on_xhr = true
 
   # The realm used in Http Basic Authentication. "Application" by default.
-  # config.http_authentication_realm = "Application"
+  config.http_authentication_realm = "Application"
 
   # It will change confirmation, password recovery and other workflows
   # to behave the same regardless if the e-mail provided was right or wrong.
@@ -64,7 +64,7 @@ Devise.setup do |config|
   config.stretches = 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "9c7ba81d7e74e80d1582e953f74b74c971803de351aa94bfcfec33eceecd0de58b47c1248b8699179d559aa13c7d09bacda20bfe360ee7f5660cfad641f2dfb9"
+  config.pepper = "9c7ba81d7e74e80d1582e953f74b74c971803de3B1aa94bfcfec33eceecd0de58b47c1248b8699179d559aa13c7d09bacda20bfe360ee7f5660cfad641f2dfb9"
 
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
