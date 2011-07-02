@@ -1,43 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Sphr</title>
-  <%= stylesheet_link_tag 'scaffold' %>
-  <%= stylesheet_link_tag 'home' %>
-  <%= csrf_meta_tag %>
-
-	<script language='javascript' type='text/javascript'>
-	<!--
-		/*
-		navigation_toggle_display runs the script.aculo.us BlindDown/BlindUp scripts to display the expanded 		
-		menus in the naviagtion bar
-		*/
-		function navigation_toggle_display(name) {
-			var id = document.getElementById(name);
-   		var div = document.getElementById(name + '_child');
-    	if(div.style.display == 'none')
-			{
-				id.innerHTML = "-- " + name;
-	      new Effect.BlindDown(div, {duration:0.2});
-			}
-      else
-			{
-				id.innerHTML = "+ " + name;
-      	new Effect.BlindUp(div, {duration:0.2});
-			}
-	  }
-	//-->
-	</script>
-	
-	<%= yield :head %>
-	
-</head>
-
-<body>	
-<div id='supercontainer'>
+<% content_for :head do %>
+	<%= stylesheet_link_tag 'home' %>
+<% end %>
 
 <div id='header'>
 	<h2 class='slogan', id='left_header'> 
@@ -75,19 +38,14 @@
 			ones. <br />
 			Privacy <br />
 			first!
-
-			<!-- <span class='red'>Farther</span> 
-			friends see less
-			information than <br />
-			<span class='blue'>closer</span> 
-			ones.  -->
 		</div>
 	</div>
 	<div id='fields' class='col'>
 		<% unless flash[:notice].nil? %>
 			<div id='flash'><%= flash[:notice] %></div>
 		<% end %>
-		<%= yield  %>
+		<%= render :partial => 'partials/sign_in', :locals => {:user => @user} %>
+		<%= render :partial => 'partials/sign_up', :locals => {:user => @user} %>
 	</div>
 	<div id='intro2' class='col'>
 		<div class='number'>2</div>
@@ -102,6 +60,3 @@
 		</div>
 	</div>
 </div>
-</div>
-</body>
-</html>

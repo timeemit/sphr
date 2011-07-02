@@ -1,13 +1,14 @@
 Sphr::Application.routes.draw do
   devise_for :users
-
-  resource :user_session, :only => [:new, :create, :destroy]
-  root :to => 'user_sessions#new'
-  match 'user_sessions/new', :as => 'login'
+  root :to => 'users#home'
+  # resource :user_session, :only => [:new, :create, :destroy]
+  # root :to => 'user_sessions#new'
+  # match 'user_sessions/new', :as => 'login'
   # match 'user_sessions', :as => 'logout', :method => :delete
+  # match 'users/:id/authenticate/:perishable_token' => 'users#authenticate', :as => :authenticate
+  
   # resources :activities, :only => :index
   resources :rings, :only => [:create, :update, :destroy]
-  # match 'users/:id/authenticate/:perishable_token' => 'users#authenticate', :as => :authenticate
   resources :users, :except => [:show, :edit, :destroy] do |users|
     # member do
     #   get 'signup'

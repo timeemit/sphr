@@ -31,7 +31,7 @@
 			<%= link_to 'Friends', friendships_path, :class => 'navigation' %>
 			<%= link_to 'Cones', cones_path, :class => 'navigation' %>
 			<%= link_to 'Find', users_path, :class => 'navigation' %> 
-			<%= link_to 'Logout', {:action=>"destroy", :controller=>"user_sessions"}, :method => :delete, 
+			<%= link_to 'Logout', {:action=>"destroy", :controller=>"devise/sessions"}, :method => :delete, 
 				:confirm => 'are you sure?', :class => 'navigation' %>
 		</div>
 

@@ -1,7 +1,14 @@
 class UsersController < ApplicationController
-  layout 'application', :unless => [:new, :create, :authenticate]
+  layout 'application', :unless => [:new, :create, :authenticate, :home]
   before_filter :require_no_user, :only => [:new, :create, :authenticate]
   before_filter :require_user, :only => [:show, :edit, :update, :index, :destroy]
+
+  #GET /
+  # link_to root
+  def home
+    @user = User.new
+    render :layout => 'users'
+  end
 
   #GET /users/1/authenticate
   # authenticate_user_path
