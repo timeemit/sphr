@@ -1,6 +1,6 @@
 <h1>Welcome!</h1>
 
-<%= form_for @user, :url => confirm_user_path, :html => { :method => :post } do |form| %>
+<%= form_for @user, :url => {:action=>"create", :controller=>"users/confirmations"}, :html => { :method => :post } do |form| %>
 	<% if @user.errors.any? %>
 		<%= render :partial => 'partials/errors', :locals => {:objects => [@user]}%>
 	<% end %>
@@ -10,7 +10,7 @@
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :username}%>
 	</p>
 	<p>
-		<%= form.label :password, form.object.confirmed? ? "Change password" : nil %><br />
+		<%= form.label :password %><br />
 		<%= form.password_field :password %>
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password}%>
 	</p>

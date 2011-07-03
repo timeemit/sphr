@@ -118,9 +118,10 @@ class UserTest < ActiveSupport::TestCase
     assert !user.save
   end
   test 'validates confirmation of email' do
-    user = skeleton1
-    user.email_confirmation << ' '
+    user = User.new(:email => 'f@1.com', :email_confirmation => 'F@1.com')
     assert !user.save
+    user.email_confirmation = user.email
+    assert user.save
   end
   test 'validates minimum length of username' do
     user = skeleton1

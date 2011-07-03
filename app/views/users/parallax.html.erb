@@ -1,3 +1,12 @@
 <h1>Thanks for signing up!</h1>
 
-<%= link_to 'Confirm my account', "http://localhost:3000/users/#{@user.id}/confirm/#{@user.confirmation_token}" %>
+<p>An email has been sent to 
+<%= @user.email %>
+</p>
+
+<p>
+<%= link_to 'Confirm my account', user_confirmation_path(:id => @user.id, :confirmation_token => @user.confirmation_token) %>
+</p>
+<p>
+"http://localhost:3000/users/#{@user.id}/confirm/#{@user.confirmation_token}"
+</p>

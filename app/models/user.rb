@@ -6,7 +6,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable,  :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :confirmable
+  devise :confirmable# , :database_authenticatable
     # :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessible :username, :email, :email_confirmation, :distinction, :password, :password_confirmation
@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   validates :email,
               :presence => true,
 	            :uniqueness => true,
-	            :confirmation => true,
+	            :confirmation => {:on => :create},
 	            :format => {
 	              :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
             		:message => "must be an '@' following alphanumeric or . _ % + - characters ending

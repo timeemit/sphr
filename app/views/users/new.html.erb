@@ -1,7 +1,7 @@
 <h1>Signup</h1>
 
-<p>Can't find your confirmation instructions?</p>
-<%= link_to 'Request a new one', new_confirmation_path(:user) %>
+<p>Already signed up?</p>
+<%= link_to 'Request New Instructions', new_confirmation_path(:user) %>
 
 <%= form_for @user do |form| %>
 	<% if @user.errors.any? %>

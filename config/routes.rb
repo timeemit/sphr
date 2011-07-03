@@ -1,23 +1,13 @@
 Sphr::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :confirmations => "users/confirmations" } 
+  as :user do
+    get 'users/:id/confirm/:confirmation_token', :to => 'users/confirmations#confirmation', :as => :user_confirmation
+  end
   root :to => 'users#home'
-  # resource :user_session, :only => [:new, :create, :destroy]
-  # root :to => 'user_sessions#new'
-  # match 'user_sessions/new', :as => 'login'
-  # match 'user_sessions', :as => 'logout', :method => :delete
-  # resources :activities, :only => :index
-  get 'users/:id/confirm/:confirmation_token' => 'users#confirmation', :as => :user_confirmation  
   resources :rings, :only => [:create, :update, :destroy]
-  resources :users do |users|# , :except => [:show, :edit, :destroy]
-    post 'confirm', :on => :member, :as => :confirm
+  resources :users do |users|
     get 'parallax', :on => :member
-    resources :shoutouts do |shoutouts|
-      # resources :comments, :only => [:create, :update, :destroy]
-    end
-    # resources :echoes
-    #resources :comments, :only => [:create, :update, :destroy] 
-    #Shouldn't have deeply nested resources.  
-    #Specify association in controller and pass hidden_field in comment forms forms rather than relying on params[].
+    resources :shoutouts
     resources :profiles
   end
   resources :friendships
