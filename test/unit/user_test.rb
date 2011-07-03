@@ -66,6 +66,15 @@ class UserTest < ActiveSupport::TestCase
     
     assert user.save, 'user could not save after being confirmed when valid'
   end
+  test 'updates_attributes' do
+    user = User.new(:email => 'parallax@liam.com', :email_confirmation => 'parallax@liam.com')
+    assert user.save, "user did not create; #{user.errors.full_messages}}"
+    user.confirm!
+    assert user.confirmed?, 'user did not confirm'
+    params = {"username"=>"PlzConfirm", "password"=>"N0wNow", "password_confirmation"=>"N0wNow", "email"=>"parallax@liam.com", 
+      "confirmation_token"=>"y2opNXN5zTL02NJEL1Fl"}
+    assert user.update_attributes(params), "user did not update: #{user.errors.full_messages}"
+  end
   
   test 'validates against blank user' do 
     assert !User.new.save, 'Blank User Created'

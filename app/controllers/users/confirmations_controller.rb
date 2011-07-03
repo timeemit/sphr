@@ -21,7 +21,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     unless @user.confirmation_token = params[:user][:confirmation_token]
       # Confirmation may have expired/changed.  User needs to be redirected to request new confirmation instructions path.
       flash[:notice] = 'You must signup to confirm your account.'
-      redirect_to :action => :home, :layout => 'users'
+      redirect_to root_path, :layout => 'users'
     end
     @user.confirm! unless @user.confirmed?
     if @user.confirmed? and @user.update_attributes(params[:user])

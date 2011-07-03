@@ -11,12 +11,12 @@
 	</p>
 	<p>
 		<%= form.label :password %><br />
-		<%= form.password_field :password %>
+		<%= form.text_field :password %>
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password}%>
 	</p>
 	<p>
 		<%= form.label :password_confirmation, 'Password Confirmation' %><br />
-		<%= form.password_field :password_confirmation %>
+		<%= form.text_field :password_confirmation %>
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password_confirmation}%>
 	</p>
 	<%= form.hidden_field :email %>
