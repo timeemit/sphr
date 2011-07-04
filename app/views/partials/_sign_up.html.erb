@@ -7,13 +7,14 @@
 	<p>
 		<%= form.label :email %><br />
 		<%= form.text_field :email %>
-		<%= render :partial => 'partials/error_message', :locals => {:object => user, :attribute => :email}%>
+		<%= render :partial => 'partials/error_message', 
+			:locals => {:object => user, :attribute => :email} if user.errors.any? %>
 	</p>
 	<p>
 		<%= form.label :email_confirmation, 'Email Confirmation' %><br />
 		<%= form.text_field :email_confirmation %>
 		<%= render :partial => 'partials/error_message', 
-			:locals => {:object => user, :attribute => :email_confirmation}%>
+			:locals => {:object => user, :attribute => :email_confirmation} if user.errors.any? %>
 	</p>
 	<%= form.submit 'Register' %>
 <% end %>

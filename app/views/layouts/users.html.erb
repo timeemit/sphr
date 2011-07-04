@@ -14,7 +14,13 @@
 </head>
 <body>
 	<div id='supercontainer' style='text-align:center;'>
-		<span id='flash'><%= flash[:notice] %></span>
+		<div id='flash'>
+			<%- flash.each do |key, msg| -%>
+				<div id="<%= key %>">
+	 				<p><%= msg %> <%= link_to_function '[X]', "Effect.Fade('#{key}')" %></p>
+				</div>
+			<% end %>
+		</div>
 		<%= yield %>
 	</div>
 </body>

@@ -20,9 +20,8 @@
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password_confirmation}%>
 	</p>
 	<%= form.hidden_field :email %>
-	<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email}%>
-	<%= form.hidden_field :confirmation_token %>
-	<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :confirmation_token}%>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email} %>
+	<%= hidden_field_tag :confirmation_token, @user.confirmation_token %>
 	
 	<%= form.submit "Register" %>
 <% end %>

@@ -18,7 +18,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   #POST /users/:id/confirm
   def create
     @user = User.find_by_email(params[:user][:email])
-    unless @user.confirmation_token = params[:user][:confirmation_token]
+    unless @user.confirmation_token = params[:confirmation_token]
       # Confirmation may have expired/changed.  User needs to be redirected to request new confirmation instructions path.
       flash[:notice] = 'You must signup to confirm your account.'
       redirect_to root_path, :layout => 'users'
@@ -26,11 +26,8 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     @user.confirm! unless @user.confirmed?
     if @user.confirmed? and @user.update_attributes(params[:user])
       flash[:notice] = 'Account successfully confirmed and updated!'
-      redirect_to :action => :home , :layout => 'users'
+      redirect_to root_path, :layout => 'users'
     else
-      logger.info "Giraffe--Errors: #{@user.errors.full_messages}"
-      logger.info "Giraffe--Password: #{@user.password}"
-      logger.info "Giraffe--Password Confirmation: #{@user.password_confirmation}"
       flash[:notice] = 'An error has prevented the confirmation of your account'
       render :action => :confirmation, :layout => 'users'
     end

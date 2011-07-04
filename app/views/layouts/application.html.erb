@@ -37,7 +37,13 @@
 
 	</div>
 	<div id='content' class='col'>
-		<div id='flash'><%= flash[:notice] %></div>
+		<div id='flash'>
+			<%- flash.each do |key, msg| -%>
+				<div id="<%= key %>">
+	 				<p><%= msg %> <%= link_to_function '[X]', "Effect.Fade('#{key}')" %></p>
+				</div>
+			<% end %>
+		</div>
 		<%= yield  %>
 	</div>
 	

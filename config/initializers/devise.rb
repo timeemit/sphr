@@ -22,8 +22,8 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  # config.authentication_keys = [ :email ]
-
+  config.authentication_keys = [ :username ]
+  
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
   # find_for_authentication method and considered in your model lookup. For instance,
@@ -42,7 +42,7 @@ Devise.setup do |config|
   config.strip_whitespace_keys = [ :email, :email_confirmation ]
 
   # Tell if authentication through request.params is enabled. True by default.
-  # config.params_authenticatable = true
+  config.params_authenticatable = true
 
   # Tell if authentication through HTTP Basic Auth is enabled. False by default.
   config.http_authenticatable = false
@@ -76,7 +76,7 @@ Devise.setup do |config|
   # config.confirm_within = 2.days
 
   # Defines which key will be used when confirming an account
-  # config.confirmation_keys = [ :email ]
+  # config.confirmation_keys = [ :username ]
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
