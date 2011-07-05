@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout 'application', :unless => [:new, :create, :authenticate, :home]
-  before_filter :require_no_user, :only => [:home, :new, :create]
+  before_filter :require_no_user, :only => [:home, :new, :create, :parallax]
   before_filter :require_user, :only => [:show, :edit, :update, :index, :destroy]
 
   #GET /

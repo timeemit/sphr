@@ -1,6 +1,10 @@
 #tests for skeleton1 and skeleton2 are in user_test.rb
+def new_skeleton1
+  return User.new(:email => 'a1@b.com', :email_confirmation => 'a1@b.com')
+end
 def skeleton1
-  user = User.create(:email => 'a1@b.com', :email_confirmation => 'a1@b.com')
+  user = new_skeleton1
+  user.save
   user.confirm!
   user.username = 'NotBlank1'
   user.password = 'S1lly'

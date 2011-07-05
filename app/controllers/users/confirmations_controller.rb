@@ -12,6 +12,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   end
   
   #GET /users/confirmation/new
+  def new
+    
+  end
   
   #POST /users/:id/confirm/resend
   def resend
