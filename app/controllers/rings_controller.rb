@@ -25,7 +25,7 @@ class RingsController < ApplicationController
     if @ring.save
       redirect_to ring_path(@ring), :notice => 'Ring successfully created!'
     else
-      redirect_to rings_path, :notice => 'Unable to create ring.'
+      redirect_to rings_path, :error => 'Unable to create ring.'
     end
   end
 
@@ -35,7 +35,7 @@ class RingsController < ApplicationController
     if @ring.update_attributes(params[:ring])
       redirect_to ring_path(@ring), :notice => 'Ring successfully update!'
     else
-      redirect_to ring_path(@ring), :notice => 'Unable to update ring.'
+      redirect_to ring_path(@ring), :error => 'Unable to update ring.'
     end
   end
 

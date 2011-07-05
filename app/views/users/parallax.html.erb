@@ -7,6 +7,3 @@
 <p>
 <%= link_to 'Confirm my account', user_confirmation_path(:id => @user.id, :confirmation_token => @user.confirmation_token) %>
 </p>
-<p>
-"http://localhost:3000/users/#{@user.id}/confirm/#{@user.confirmation_token}"
-</p>

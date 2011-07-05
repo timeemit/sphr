@@ -1,10 +1,12 @@
+.red{color:red;}
+.green{color:limegreen;}
+.blue{color:dodgerblue;}
 #flash {text-align:center;}
-
 #header{
 	width:800px;
 	background:black;
+	display:block;
 }
-
 #logo{
 	width:120px;
 	height:80px;
@@ -14,7 +16,6 @@
 	border-left:10px solid black;
 	border-right:10px solid black;
 }
-
 .slogan{
 	border-radius:0px;
 	padding:0px;
@@ -24,51 +25,42 @@
 	width:330px;
 	display:block;
 	float:left;
-	text-align:center; 
 }
-
-#left_header.slogan{border-bottom-left-radius:15px;}
-#right_header.slogan{border-bottom-right-radius:15px;}
-
-.green{color:limegreen;}
-
-.red{color:red;}
-
-.blue{color:dodgerblue;}
-
+#left_header.slogan{text-align:right; border-bottom-left-radius:15px;}
+#right_header.slogan{text-align:left; border-bottom-right-radius:15px;}
+#big{font-size:40px; text-align:center; display:block;}
+#small{font-size:20px; text-align:center;}
 #fields{
 	width:250px;
 	text-align:center;
 }
-
 #fields input{text-align:center;}
-
 #intro1, #intro2{
 	width:275px;
 	font-size:30px;
 }
-
+#intro1 .first_line{margin-right:10px;}
+#intro2 .first_line{margin-left:10px;}
 #intro1, #intro2 .second_line{
 	text-align:right;
 }
-
 #intro2, #intro1 .second_line{
 	text-align:left;
 }
-
 .number{
-	border-bottom:1px solid black;
+	text-align:center;
+	border-bottom:;
 }
-
 #intro1 .number{
-	text-align:left; 
+	float:left; 
+	margin-left:20px;
 }
-
 #intro2 .number{
-	text-align:right;
+	float:right;
+	margin-right:20px;
 }
-
 .second_line{
 	font-size:20px; 
 	font-style:italic;
+	margin-top:10px;
 }

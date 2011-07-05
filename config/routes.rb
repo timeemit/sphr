@@ -2,6 +2,7 @@ Sphr::Application.routes.draw do
   devise_for :users, :controllers => { :confirmations => "users/confirmations" } 
   as :user do
     get 'users/:id/confirm/:confirmation_token', :to => 'users/confirmations#confirmation', :as => :user_confirmation
+    post 'users/:id/confirm/resend', :to => 'users/confirmations#resend', :as => :confirmation_resend
   end
   root :to => 'users#home'
   resources :rings, :only => [:create, :update, :destroy]
@@ -12,7 +13,7 @@ Sphr::Application.routes.draw do
   end
   resources :friendships
   resources :cones
-  resources :cone_connections, :only => [:create, :update, :destroy]
+  # resources :cone_connections, :only => [:create, :update, :destroy]
 end
 
   # The priority is based upon order of creation:

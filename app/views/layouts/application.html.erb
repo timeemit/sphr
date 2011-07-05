@@ -8,7 +8,7 @@
 	<%= javascript_include_tag :defaults %>
 	<%= stylesheet_link_tag 'scaffold' %>
   <%= csrf_meta_tag %>
-	
+	<%= favicon_link_tag 'favicon.ico' %>
 	<%= yield :head %>
 	
 </head>
@@ -16,39 +16,37 @@
 <body>
 	
 <div id='supercontainer'>	
-<div id='header'>
-</div>	
-<% if user_signed_in? %>
-<div id='main', class='container'>
-	<div id='navigation', class='col'>
-		<%= image_tag 'logo23.png', {:height => 80, :width => 120} %>		
+	<div id='header'>
+		<%= yield :header %>
+	</div>	
+	<% if content_for?(:main) %>
+		<div id='main'>
+			<%= yield :main %>
+		</div>
+	<% else %>
+		<div id='main', class='container'>
+			<div id='navigation', class='col'>
+				<%= image_tag 'logo23.png', {:height => 80, :width => 120} %>		
 		
-		<div id='Me_child'>
-			<%= link_to 'Shoutouts', user_shoutouts_path(current_user), :class => 'navigation'%>
-			<%= link_to 'Profiles', user_profiles_path(current_user), :class => 'navigation' %>
-		</div>
-		<div id='Friends_child'>
-			<%= link_to 'Friends', friendships_path, :class => 'navigation' %>
-			<%= link_to 'Cones', cones_path, :class => 'navigation' %>
-			<%= link_to 'Find', users_path, :class => 'navigation' %> 
-			<%= link_to 'Logout', {:action=>"destroy", :controller=>"devise/sessions"}, :method => :delete, 
-				:confirm => 'are you sure?', :class => 'navigation' %>
-		</div>
-
-	</div>
-	<div id='content' class='col'>
-		<div id='flash'>
-			<%- flash.each do |key, msg| -%>
-				<div id="<%= key %>">
-	 				<p><%= msg %> <%= link_to_function '[X]', "Effect.Fade('#{key}')" %></p>
+				<div id='Me_child'>
+					<%= link_to 'Shoutouts', user_shoutouts_path(current_user), :class => 'navigation'%>
+					<%= link_to 'Profiles', user_profiles_path(current_user), :class => 'navigation' %>
 				</div>
-			<% end %>
+				<div id='Friends_child'>
+					<%= link_to 'Friends', friendships_path, :class => 'navigation' %>
+					<%= link_to 'Cones', cones_path, :class => 'navigation' %>
+					<%= link_to 'Find', users_path, :class => 'navigation' %> 
+					<%= link_to 'Logout', {:action=>"destroy", :controller=>"devise/sessions"}, :method => :delete, 
+						:class => 'navigation' %>
+				</div>
+
+			</div>
+			<div id='content' class='col'>
+				<%= render :partial => 'partials/flash', :locals => {:flash => flash} %>
+				<%= yield  %>
+			</div>
 		</div>
-		<%= yield  %>
-	</div>
-	
-</div>
-<% end %>
+	<% end %>
 </div>
 
 </body>

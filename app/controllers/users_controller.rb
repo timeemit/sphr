@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
   layout 'application', :unless => [:new, :create, :authenticate, :home]
-  before_filter :require_no_user, :only => [:new, :create, :authenticate]
+  before_filter :require_no_user, :only => [:home, :new, :create]
   before_filter :require_user, :only => [:show, :edit, :update, :index, :destroy]
 
   #GET /
-  # link_to root
   def home
     @user = User.new
     render :layout => 'users'
@@ -45,7 +44,7 @@ class UsersController < ApplicationController
       @user.send_confirmation_instructions
       render :action => :parallax, :layout => 'users'
     else
-      flash[:notice] = 'Could not save email address.'
+      flash[:error] = 'Could not save email address.'
       render :action => :new, :layout => 'users'
     end
   end
@@ -57,6 +56,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Account updated!"
       redirect_to user_posts_path(current_user)
     else
+      flash[:error] = 'Could not update account'
       render :action => :edit
     end
   end

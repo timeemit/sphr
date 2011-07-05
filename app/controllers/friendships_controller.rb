@@ -41,7 +41,7 @@ class FriendshipsController < ApplicationController
       @friendship.mutual? ? (flash[:notice] = 'Added friend') : (flash[:notice] = 'Extended friendship.')
       redirect_to friendship_path(@friendship)
     else
-      flash[:notice] = 'Unable to create friendship.'
+      flash[:error] = 'Unable to create friendship.'
       retrieve_and_develop_all_friendships
       render :action => 'index'
     end
@@ -59,7 +59,7 @@ class FriendshipsController < ApplicationController
       flash[:notice] = "Friendship updated!"
       redirect_to friendship_path(@friendship)
     else
-      flash[:notice] = "Friendship could not be updated."
+      flash[:error] = "Friendship could not be updated."
       render :action => :edit
     end
   end

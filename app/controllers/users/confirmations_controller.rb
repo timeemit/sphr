@@ -1,8 +1,4 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
-  def new
-    
-  end  
-  
   #GET /users/:id/confirm/:confirmation_token
   def confirmation
     @user = User.find(params[:id])
@@ -10,9 +6,19 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       flash[:notice] = "Welcome! \n Fill out the form to complete the confirmation of your account."
       render :layout => 'users'
     else
-      flash[:notie] = 'You must confirm and sign in to edit your account.'
+      flash[:error] = 'Please follow the link sent to your email account.'
       redirect_to :action => :home, :layout => 'users'
     end
+  end
+  
+  #GET /users/confirmation/new
+  
+  #POST /users/:id/confirm/resend
+  def resend
+    @user = User.find(params[:id])
+    @user.send_confirmation_instructions
+    flash[:notice] = 'Email instructions have been sent to your account.'
+    redirect_to parallax_path(@user)
   end
   
   #POST /users/:id/confirm
@@ -20,7 +26,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     @user = User.find_by_email(params[:user][:email])
     unless @user.confirmation_token = params[:confirmation_token]
       # Confirmation may have expired/changed.  User needs to be redirected to request new confirmation instructions path.
-      flash[:notice] = 'You must signup to confirm your account.'
+      flash[:error] = 'You must signup to confirm your account.'
       redirect_to root_path, :layout => 'users'
     end
     @user.confirm! unless @user.confirmed?
@@ -28,7 +34,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       flash[:notice] = 'Account successfully confirmed and updated!'
       redirect_to root_path, :layout => 'users'
     else
-      flash[:notice] = 'An error has prevented the confirmation of your account'
+      flash[:error] = 'An error has prevented the confirmation of your account'
       render :action => :confirmation, :layout => 'users'
     end
   end  

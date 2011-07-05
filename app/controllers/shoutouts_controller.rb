@@ -34,7 +34,7 @@ class ShoutoutsController < ApplicationController
     if @shoutout.save
       redirect_to(user_shoutout_path(@shoutout.user, @shoutout), :notice => 'Shoutout was successfully created!')
     else
-      render :action => "new" 
+      render :action => "new", :error => 'Shoutout could not be created.'
     end
   end
 
@@ -44,7 +44,7 @@ class ShoutoutsController < ApplicationController
     if @shoutout.update_attributes(params[:shoutout])
       redirect_to(user_shoutout_path(@shoutout.user, @shoutout), :notice => 'Shoutout was successfully updated!')
     else
-      render :action => "edit"
+      render :action => "edit", :error => 'Shoutout could not be updated'
     end
   end
 

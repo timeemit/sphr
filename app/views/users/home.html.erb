@@ -2,7 +2,7 @@
 	<%= stylesheet_link_tag 'home' %>
 <% end %>
 
-<div id='header'>
+<% content_for :header do %>
 	<h2 class='slogan', id='left_header'> 
 		<span class='green'>Friendship</span> 
 		Shouldn't 
@@ -12,24 +12,27 @@
 		<span class='red'>Sacrifice</span> 
 		<span class='blue'>Privacy</span>
 	</h2>
-</div>	
+<% end %>
+<br />
+<%= render :partial => 'partials/flash', :locals => {:flash => flash} %>
 <div id='main'>
-	<br />
-	<div style='font-size:40px; text-align:center;'>
+	<div id='big'>
 		<strong class='green'>Sphr</strong> is a network <br />designed for
 		<em class='blue'><strong>privacy.</strong></em>
 	</div>
-	<div style='font-size:20px; text-align:center;'>
+	<div id='small'>
 		Control who sees your activity, personal information, <br /> 
 		and communications through two intuitive features.
 	</div>
 	<br />
 	<div id='intro1' class='col'>
-		<div class='number'>1 </div>
-		Set <br />
-		friends to  <br />
-		distances with<br />
-		"rings"		
+		<div class='first_line'>
+			1 <br />
+			Set <br />
+			friends to  <br />
+			distances with<br />
+			"rings"		
+		</div>
 		<div class='second_line'>
 			<span class='blue'>Closer</span> 
 			friends see more<br />
@@ -41,23 +44,23 @@
 		</div>
 	</div>
 	<div id='fields' class='col'>
-		<% unless flash[:notice].nil? %>
-			<div id='flash'><%= flash[:notice] %></div>
-		<% end %>
-		<%= link_to "Sign in", new_user_session_path %>
 		<%= render :partial => 'partials/sign_in', :locals => {:user => @user} %>
 		<%= render :partial => 'partials/sign_up', :locals => {:user => @user} %>
+		Already signed up? <br />
+		<%= link_to 'Resend Confirmation Instructions', new_confirmation_path(:user) %>
 	</div>
 	<div id='intro2' class='col'>
-		<div class='number'>2</div>
-		Place <br />
-		friends into <br /> 
-		groups called "cones" <br />
+		<div class='first_line'>		
+			2 <br />
+			Place <br />
+			friends into <br /> 
+			groups called "cones" <br />
+		</div>		
 		<div class='second_line', style='margin-left:20px;'>
-			Useful 
-			<span class='green'>privacy controls</span>
-			are fully integrated <br />
-			throughout your communication interfaces.
+				Useful
+				<span class='green'>privacy controls</span>
+				are fully integrated <br />
+				throughout your communication interfaces.
 		</div>
 	</div>
 </div>
