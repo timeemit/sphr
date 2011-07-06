@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   end
   
   #GET /users/:id/parallax
-  def parallax
+  def welcome
     @user = User.find(params[:id])
     render :layout => 'users'
   end
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = 'Thanks for signing up!'
       @user.send_confirmation_instructions
-      render :action => :parallax, :layout => 'users'
+      render :action => :welcome, :layout => 'users'
     else
       flash[:error] = 'Could not save email address.'
       render :action => :new, :layout => 'users'
