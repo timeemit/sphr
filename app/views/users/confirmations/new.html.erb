@@ -1,6 +1,6 @@
 <h2>Resend confirmation instructions</h2>
 
-<%= form_for(resource, :as => resource_name, :url => confirmation_resend_path(resource), :html => { :method => :post }) do |f| %>
+<%= form_for(@user, :url => confirmation_resend_path, :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
   <p><%= f.label :email %><br />

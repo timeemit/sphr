@@ -13,15 +13,15 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   
   #GET /users/confirmation/new
   def new
-    
+    @user = User.new
   end
   
   #POST /users/:id/confirm/resend
   def resend
-    @user = User.find(params[:id])
+    @user = User.find_by_email(params[:user][:email])
     @user.send_confirmation_instructions
     flash[:notice] = 'Email instructions have been sent to your account.'
-    redirect_to parallax_path(@user)
+    redirect_to parallax_user_path(@user)
   end
   
   #POST /users/:id/confirm

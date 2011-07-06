@@ -1,14 +1,10 @@
 <h2>Resend confirmation instructions</h2>
 
-<% if resource.is_a?(User) %>
-	<%= form_for(resource, :as => resource_name, :url => confirmation_resend_path(resource), :html => { :method => :post }) do |f| %>
-<% else %>
-	<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-	  <%= devise_error_messages! %>
+<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+  <%= devise_error_messages! %>
 
-	  <p><%= f.label :email %><br />
-	  <%= f.email_field :email %></p>
+  <p><%= f.label :email %><br />
+  <%= f.email_field :email %></p>
 
-	  <p><%= f.submit "Resend confirmation instructions" %></p>
-	<% end %>
+  <p><%= f.submit "Resend confirmation instructions" %></p>
 <% end %>
