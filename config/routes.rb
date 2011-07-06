@@ -7,7 +7,7 @@ Sphr::Application.routes.draw do
   root :to => 'users#home'
   resources :rings, :only => [:create, :update, :destroy]
   resources :users do |users|
-    get 'parallax', :on => :member
+    get 'thank_you', :on => :member, :as => 'parallax'
     resources :shoutouts
     resources :profiles
   end

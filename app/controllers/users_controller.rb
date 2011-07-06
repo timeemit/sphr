@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   #GET /users
   def index
     @search = User.search(params[:search])
-    @users = @search.relation.order(:username).page(params[:page])
+    @users = @search.relation.order(:username).page(params[:page]) #This still shows ALL users, not just confirmed ones.
   end
 
   #GET /users/1/new  
