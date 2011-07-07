@@ -19,11 +19,7 @@
 	<div id='header'>
 		<%= yield :header %>
 	</div>	
-	<% if content_for?(:main) %>
-		<div id='main'>
-			<%= yield :main %>
-		</div>
-	<% else %>
+	<% if current_user %>
 		<div id='main', class='container'>
 			<div id='navigation', class='col'>
 				<%= image_tag 'logo23.png', {:height => 80, :width => 120} %>		
@@ -46,7 +42,12 @@
 				<%= yield  %>
 			</div>
 		</div>
+	<% else %>
+		<div id='main'>
+			<%= yield :main %>
+		</div>
 	<% end %>
+	
 </div>
 
 </body>

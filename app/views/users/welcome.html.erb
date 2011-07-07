@@ -22,15 +22,16 @@
 </p>
 
 <div id='shell'>
-	<%= image_tag 'welcome/sphr-top-left.gif', {:id => 'top-left', :class => 'plax_welcome'} %>
-	<%= image_tag 'welcome/sphr-top-right.gif', {:id => 'top-right', :class => 'plax_welcome'} %>
-	<%= image_tag 'welcome/sphr-bottom-left.gif', {:id => 'bottom-left', :class => 'plax_welcome'} %>
-	<%= image_tag 'welcome/sphr-bottom-right.gif', {:id => 'bottom-right', :class => 'plax_welcome'} %>
-	<%= image_tag 'welcome/title.gif', {:id => 'title', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/sphr-top-left.png', {:id => 'top-left', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/sphr-top-right.png', {:id => 'top-right', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/sphr-bottom-left.png', {:id => 'bottom-left', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/sphr-bottom-right.png', {:id => 'bottom-right', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/title.png', {:id => 'title', :class => 'plax_welcome'} %>
 </div>
 <!-- 
 Images converted to .gif from .png by:
 http://images.my-addr.com/converter_png_to_gif_online_freeware_tool.php 
+Still wasn't quite as good as I would have liked.
 -->
 <p>
 <%= link_to 'Confirm my account', user_confirmation_path(:id => @user.id, :confirmation_token => @user.confirmation_token) %>
