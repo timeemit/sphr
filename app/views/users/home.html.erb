@@ -42,8 +42,8 @@
 		</div>
 	</div>
 	<div id='fields' class='col'>
-		<%= render :partial => 'partials/sign_in', :locals => {:user => @user} %>
-		<%= render :partial => 'partials/sign_up', :locals => {:user => @user} %>
+		<div id='signin'><%= render :partial => 'partials/sign_in', :locals => {:user => @user} %></div>
+		<div id='signup'><%= render :partial => 'partials/sign_up', :locals => {:user => @user} %></div>
 		Already signed up? <br />
 		<%= link_to 'Resend Confirmation Instructions', new_confirmation_path(:user) %>
 	</div>

@@ -71,3 +71,7 @@
 	font-style:italic;
 	margin-top:10px;
 }
+#signin h2{
+	border-top-right-radius:0px;
+	border-top-left-radius:0px;
+}
