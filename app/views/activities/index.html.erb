@@ -1,4 +1,4 @@
-<h1>Activities</h1>
+<h2>Activities</h2>
 
 <% for activity in @activities %>
 	<% if activity.action == 'created_comment_for_user' and @activities.include?(activity.entity.post.activity) %>

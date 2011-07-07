@@ -13,8 +13,6 @@
 		<span class='blue'>Privacy</span>
 	</h2>
 <% end %>
-<br />
-<%= render :partial => 'partials/flash', :locals => {:flash => flash} %>
 <div id='main'>
 	<div id='big'>
 		<strong class='green'>Sphr</strong> is a network <br />designed for
@@ -26,8 +24,10 @@
 	</div>
 	<br />
 	<div id='intro1' class='col'>
+		<div class='number'>
+			<h3>1</h3>
+		</div>
 		<div class='first_line'>
-			1 <br />
 			Set <br />
 			friends to  <br />
 			distances with<br />
@@ -50,8 +50,10 @@
 		<%= link_to 'Resend Confirmation Instructions', new_confirmation_path(:user) %>
 	</div>
 	<div id='intro2' class='col'>
-		<div class='first_line'>		
+		<div class='number'>
 			2 <br />
+		</div>
+		<div class='first_line'>		
 			Place <br />
 			friends into <br /> 
 			groups called "cones" <br />

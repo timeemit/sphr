@@ -39,25 +39,21 @@
 	width:275px;
 	font-size:30px;
 }
-#intro1 .first_line{margin-right:10px;}
-#intro2 .first_line{margin-left:10px;}
+#intro1 .first_line{margin-right:40px;}
+#intro2 .first_line{margin-left:40px;}
 #intro1, #intro2 .second_line{
 	text-align:right;
 }
 #intro2, #intro1 .second_line{
 	text-align:left;
 }
-.number{
-	text-align:center;
-	border-bottom:;
-}
 #intro1 .number{
 	float:left; 
-	margin-left:20px;
+	font-size:50px;
 }
 #intro2 .number{
 	float:right;
-	margin-right:20px;
+	font-size:50px;
 }
 .second_line{
 	font-size:20px; 

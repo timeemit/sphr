@@ -1,4 +1,4 @@
-<h1>Welcome!</h1>
+<h2>Welcome!</h2>
 
 <%= form_for @user, :url => {:action=>"create", :controller=>"users/confirmations"}, :html => { :method => :post } do |form| %>
 	<% if @user.errors.any? %>
