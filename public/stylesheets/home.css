@@ -47,13 +47,24 @@
 #intro2, #intro1 .second_line{
 	text-align:left;
 }
+#intro2 .second_line{margin-left:20px;}
+.number{
+	display:inline;
+	font-weight:bold;
+	margin:0px;
+	padding:10px 0px;
+	width:60px;
+	background-color:black;
+	color:white;
+	text-align:center;
+}
 #intro1 .number{
 	float:left; 
-	font-size:50px;
+	border-bottom-right-radius:20px;
 }
 #intro2 .number{
 	float:right;
-	font-size:50px;
+	border-bottom-left-radius:20px;
 }
 .second_line{
 	font-size:20px; 

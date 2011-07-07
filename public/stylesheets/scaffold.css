@@ -13,11 +13,11 @@ h1, h2, h3, h4, h5, h6 {
 	padding-left: 5px;
 	border-radius: 15px;
 }
-h4, h5, h6 {padding: 2px 0;}
-h1{font-size:26px;}
-h2{font-size:20px;}
-
-label{font-size: 15px;}
+h1{font-size:30px;}
+h2{font-size:26px;}
+h3{font-size:18px;}
+h4{font-size:16px;}
+label{font-size:15px;}
 textarea {
 	height: 45px;
 	width:220px;
