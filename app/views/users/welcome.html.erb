@@ -1,8 +1,22 @@
-<h1>Thanks for signing up!</h1>
+<% content_for :head do %>
+<%= stylesheet_link_tag 'welcome' %>
+<% end %>
 
-<p>An email has been sent to 
-<%= @user.email %>
+<h2>Thanks for signing up!</h2>
+
+<p>
+	An email has been sent to 
+	<%= @user.email %>
+	with a link to confirm your account.
 </p>
+
+<div id='shell'>
+	<%= image_tag 'welcome/sphr-top-left.png', {:id => 'top-left', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/sphr-top-right.png', {:id => 'top-right', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/sphr-bottom-left.png', {:id => 'bottom-left', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/sphr-bottom-right.png', {:id => 'bottom-right', :class => 'plax_welcome'} %>
+	<%= image_tag 'welcome/title.png', {:id => 'title', :class => 'plax_welcome'} %>
+</div>
 
 <p>
 <%= link_to 'Confirm my account', user_confirmation_path(:id => @user.id, :confirmation_token => @user.confirmation_token) %>
