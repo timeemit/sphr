@@ -19,7 +19,7 @@ module ApplicationHelper
   
   #Returns a link to the user displaying a name appropriate for the current_user
   def link_through_name(user, current_user)
-    return link_to user.name(current_user), user_shoutouts_path(user)
+    return link_to user.name(current_user), user_shoutouts_path(user), :class => :name
   end
   
   #Given a ring, returns a span with the number in the appropriate background color

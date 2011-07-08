@@ -1,16 +1,5 @@
 <% content_for :head do %>
 	<%= stylesheet_link_tag 'welcome' %>
-	<%= javascript_include_tag 'plax.js'%>
-	<script type="text/javascript">
-    $(document).ready(function () {
-      // $('#title').plaxify({"xRange":10,"yRange":10})
-      $('#top-left').plaxify({"xRange":50,"yRange":50})
-      $('#top-right').plaxify({"xRange":-20,"yRange":20})
-      $('#bottom-left').plaxify({"xRange":20,"yRange":-20})
-      $('#bottom-right').plaxify({"xRange":-50,"yRange":-50})
-      $.plax.enable()
-    })
-  </script>
 <% end %>
 
 <h2>Thanks for signing up!</h2>
@@ -36,3 +25,16 @@ Still wasn't quite as good as I would have liked.
 <p>
 <%= link_to 'Confirm my account', user_confirmation_path(:id => @user.id, :confirmation_token => @user.confirmation_token) %>
 </p>
+
+<% content_for :footer do %>
+	<%= javascript_include_tag 'plax.js'%>
+	<script type="text/javascript">
+    $(document).ready(function () {
+      $('#top-left').plaxify({"xRange":50,"yRange":50})
+      $('#top-right').plaxify({"xRange":-20,"yRange":20})
+      $('#bottom-left').plaxify({"xRange":20,"yRange":-20})
+      $('#bottom-right').plaxify({"xRange":-50,"yRange":-50})
+      $.plax.enable()
+    })
+  </script>
+<% end %>

@@ -11,8 +11,8 @@ class UsersController < ApplicationController
   
   #GET /users
   def index
-    @search = User.search(params[:search])
-    @users = @search.relation.order(:username).page(params[:page]) #This still shows ALL users, not just confirmed ones.
+    @search = User.where(:confirmed_at.ne => nil).search(params[:search]) #Hurray for Metawhere and Metasearch!!!
+    @users = @search.relation.order(:username).page(params[:page])
   end
 
   #GET /users/1/new  
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   
   #POST /users/1
   def update
-    @user = User.find(params[:user]) # makes our views "cleaner" and more consistent
+    @user = User.find(params[:id]) # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       redirect_to user_posts_path(current_user)

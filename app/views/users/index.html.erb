@@ -19,8 +19,10 @@
 <% for user in @users %>
 	<% unless user == current_user %>
 		<li>
-			<%= link_to user.username, user_shoutouts_path(user), :class => :name %>	
-			| <%= user.distinction %>
+			<%= link_through_name(user, current_user) %>	
+			<% if user.distinction %>
+				| <%= user.distinction %>
+			<% end %>
 			<% unless current_user.mutual_friends.include?(user) %>
 				| <%= link_to 'Propose Friendship', 
 					friendships_path(:friendship => {:friend_id => user.id, :ring_id => current_user.public_ring.id}),

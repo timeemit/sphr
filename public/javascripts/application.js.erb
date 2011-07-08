@@ -1,0 +1,34 @@
+// Place your application-specific JavaScript functions and classes here
+// This file is automatically included by javascript_include_tag :defaults
+
+// Animates sphrs for form input.
+$('input').focus(function() {
+  var pos = $(this).position();
+	var height = $(this).height();
+	var width = $(this).width();
+	$(this).after(
+		'<img id="red" src="/images/input/red.png">'
+	).after(
+		'<img id="blue" src="/images/input/blue.png">'
+	).after(
+		'<img id="green" src="/images/input/green.png">'
+	); 
+	$('#red').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left-50+Math.floor(Math.random()*width)}); 
+	$('#blue').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left-50+Math.floor(Math.random()*width)}); 
+	$('#green').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left-50+Math.floor(Math.random()*width)}); 
+  $('#red, #blue, #green').animate({
+		left: '-=50', top: '-=50',
+    height: '100', width: '100'
+	}, {duration: 500, ease: 'swing'}
+	).animate({
+		left: '+=10', top: '+=10',
+		height: '80', width: '80'
+	},{duration: 800, ease: 'swing'});
+});
+// image_tag "input/red.png", {:id => "red"}
+
+$('input').blur(function(){
+	$('#red').remove();
+	$('#blue').remove();
+	$('#green').remove();
+})

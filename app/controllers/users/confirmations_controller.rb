@@ -1,4 +1,5 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
+  before_filter :require_no_user
   #GET /users/:id/confirm/:confirmation_token
   def confirmation
     @user = User.find(params[:id])

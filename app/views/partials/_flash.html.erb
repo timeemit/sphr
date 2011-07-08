@@ -1,7 +1,7 @@
 <div id='flash'>
 	<%- flash.each do |key, msg| -%>
 		<div id="<%= key %>">
-			<p><%= msg %> <%= link_to_function '[X]', "Effect.Fade('#{key}')" %></p>
+			<p><%= msg %></p>
 		</div>
 	<% end %>
 </div>

@@ -7,7 +7,7 @@
 		<span class='green'>Friendship</span> 
 		Shouldn't 
 	</h2>
-	<%= image_tag 'logo24.png', {:height => 80, :width => 120, :id => 'logo'} %>
+	<%= image_tag 'logos/logo24.png', {:height => 80, :width => 120, :id => 'logo'} %>
 	<h2 class='slogan' id='right_header'>
 		<span class='red'>Sacrifice</span> 
 		<span class='blue'>Privacy</span>
@@ -62,3 +62,10 @@
 		</div>
 	</div>
 </div>
+<% content_for :footer do %>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+		  $("#user_username").focus();
+		});
+	</script>
+<% end %>
