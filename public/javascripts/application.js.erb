@@ -6,6 +6,7 @@ $('input').focus(function() {
   var pos = $(this).position();
 	var height = $(this).height();
 	var width = $(this).width();
+	// Insert the three images.
 	$(this).after(
 		'<img id="red" src="/images/input/red.png">'
 	).after(
@@ -13,17 +14,19 @@ $('input').focus(function() {
 	).after(
 		'<img id="green" src="/images/input/green.png">'
 	); 
-	$('#red').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left-50+Math.floor(Math.random()*width)}); 
-	$('#blue').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left-50+Math.floor(Math.random()*width)}); 
-	$('#green').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left-50+Math.floor(Math.random()*width)}); 
+	// Set the position of the three images.
+	$('#red').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left+Math.floor(Math.random()*width)}); 
+	$('#blue').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left+Math.floor(Math.random()*width)}); 
+	$('#green').css({'top':pos.top+Math.floor(Math.random()*height), 'left':pos.left+Math.floor(Math.random()*width)}); 
+	// Animate their appearance.  
   $('#red, #blue, #green').animate({
-		left: '-=50', top: '-=50',
-    height: '100', width: '100'
-	}, {duration: 500, ease: 'swing'}
+    height: '100', width: '100', // Grow the images to 100px in width and height
+		left: '-=50', top: '-=50' // Adjust the position so that picture remains centered
+	}, {duration: 500, ease: 'swing'} // Half a second.
 	).animate({
-		left: '+=10', top: '+=10',
-		height: '80', width: '80'
-	},{duration: 800, ease: 'swing'});
+		height: '80', width: '80', // Shrink the images down to 80px in width and height
+		left: '+=10', top: '+=10' // Again, adjust the height
+	},{duration: 800, ease: 'swing'}); // 0.8 seconds.
 });
 // image_tag "input/red.png", {:id => "red"}
 
