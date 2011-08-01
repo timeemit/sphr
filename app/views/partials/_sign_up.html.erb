@@ -1,0 +1,20 @@
+<h2>Sign Up</h2>
+
+<%= form_for user, :url => {:controller => 'users', :action => 'create'} do |form| %>
+	<% if user.errors.any? %>
+		<%= render :partial => 'partials/errors', :locals => {:objects => [user]}%>
+	<% end %>
+	<p>
+		<%= form.label :email %><br />
+		<%= form.text_field :email %>
+		<%= render :partial => 'partials/error_message', 
+			:locals => {:object => user, :attribute => :email} if user.errors.any? %>
+	</p>
+	<p>
+		<%= form.label :email_confirmation, 'Email Confirmation' %><br />
+		<%= form.text_field :email_confirmation %>
+		<%= render :partial => 'partials/error_message', 
+			:locals => {:object => user, :attribute => :email_confirmation} if user.errors.any? %>
+	</p>
+	<%= form.submit 'Register' %>
+<% end %>

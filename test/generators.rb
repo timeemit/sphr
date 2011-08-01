@@ -1,6 +1,11 @@
 #tests for skeleton1 and skeleton2 are in user_test.rb
+def new_skeleton1
+  return User.new(:email => 'a1@b.com', :email_confirmation => 'a1@b.com')
+end
 def skeleton1
-  user = User.create(:email => 'a1@b.com', :email_confirmation => 'a1@b.com')
+  user = new_skeleton1
+  user.save
+  user.confirm!
   user.username = 'NotBlank1'
   user.password = 'S1lly'
   user.password_confirmation = 'S1lly'
@@ -14,6 +19,7 @@ def saved_skeleton1
 end
 def skeleton2
   user = User.create(:email => 'a2@b.com', :email_confirmation => 'a2@b.com')
+  user.confirm!
   user.username = 'NotBlank2'
   user.password = 'S1lly'
   user.password_confirmation = 'S1lly'
@@ -33,6 +39,7 @@ def build_skeletons(number, username)
     user = User.create(
       :email => username + index.to_s + '@frndsphr.com',
       :email_confirmation => username + index.to_s + '@frndsphr.com')
+    user.confirm!
     user.username = username + index.to_s
     user.password = 'Sk3lly'
     user.password_confirmation = 'Sk3lly'

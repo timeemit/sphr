@@ -1,27 +1,19 @@
 Sphr::Application.routes.draw do
-  resource :user_session, :only => [:new, :create, :destroy]
-  root :to => 'user_sessions#new'
-  match 'user_sessions/new', :as => 'login'
-  # match 'user_sessions', :as => 'logout', :method => :delete
-  # resources :activities, :only => :index
+  devise_for :users, :controllers => { :confirmations => "users/confirmations" } 
+  as :user do
+    get 'users/:id/confirm/:confirmation_token', :to => 'users/confirmations#confirmation', :as => :user_confirmation
+    post 'users/confirm/resend', :to => 'users/confirmations#resend', :as => :confirmation_resend
+  end
+  root :to => 'users#home'
   resources :rings, :only => [:create, :update, :destroy]
-  match 'users/:id/authenticate/:perishable_token' => 'users#authenticate', :as => :authenticate
-  resources :users, :except => [:show, :edit, :destroy] do |users|
-    member do
-      get 'signup'
-    end
-    resources :shoutouts do |shoutouts|
-      # resources :comments, :only => [:create, :update, :destroy]
-    end
-    # resources :echoes
-    #resources :comments, :only => [:create, :update, :destroy] 
-    #Shouldn't have deeply nested resources.  
-    #Specify association in controller and pass hidden_field in comment forms forms rather than relying on params[].
+  resources :users do |users|
+    get 'welcome', :on => :member
+    resources :shoutouts
     resources :profiles
   end
   resources :friendships
   resources :cones
-  resources :cone_connections, :only => [:create, :update, :destroy]
+  # resources :cone_connections, :only => [:create, :update, :destroy]
 end
 
   # The priority is based upon order of creation:

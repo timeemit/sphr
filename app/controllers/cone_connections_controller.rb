@@ -9,7 +9,7 @@ class ConeConnectionsController < ApplicationController
       flash[:notice] = 'Cone connection was successfully created.'
       redirect_to edit_cone_path(@cone)
     else
-      flash[:notice] = 'This is silly.'
+      flash[:error] = 'Cone connection could not be created.'
       render :controller => 'cone', :action => "edit"
     end
   end

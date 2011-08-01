@@ -1,6 +1,6 @@
 <h2 style='margin:0px'>Login</h2>
 
-<%= form_for @user_session, :url => {:controller => 'user_sessions', :action => 'create'} do |f| %>
+<%= form_for @user, :url => {:action=>"create", :controller=>"devise/sessions"} do |f| %>
   <% if @user_session.errors.any? %>
 		<%= render :partial => 'partials/errors', :locals => {:objects => [@user_session]}%>
 	<% end %>

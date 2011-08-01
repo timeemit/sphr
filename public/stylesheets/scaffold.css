@@ -1,11 +1,9 @@
 body { background-color: #fff; color: #333;}
-
 body, p, ol, ul, td, textarea {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
 	margin:				0px;
 }
-
 h1, h2, h3, h4, h5, h6 { 
 	background-color:#000000;
 	color: #FFFFFF;
@@ -15,23 +13,22 @@ h1, h2, h3, h4, h5, h6 {
 	padding-left: 5px;
 	border-radius: 15px;
 }
-
-h4, h5, h6 {padding: 2px 0;}
-
-label{font-size: 15px;}
-
+h1{font-size:30px;}
+h2{font-size:26px;}
+h3{font-size:18px;}
+h4{font-size:16px;}
+label{font-size:15px;}
+input{position:relative;}
 textarea {
 	height: 45px;
 	width:220px;
 	font-size: 14px;
 }
-
 pre { 
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
 }
-
 a { text-align:right; display:inline; text-decoration:none; color:#0000FF;}
 a:visited { color:#0000FF; }
 a:hover { color:blue; background-color:#90EE90; }
@@ -44,43 +41,33 @@ a.navigation {
 	text-decoration:none;
 }
 a.navigation:hover{ color:white; background:black;}
-
 div.field, div.actions {
   margin-bottom: 10px;
 }
-
-#flash, #notice {
-  color: green;
-}
-
+#flash, #notice {color: green;}
+#flash #error {color:red;}
 #supercontainer{width:800px; margin:auto;}
-
 #header{
 	text-align:left;
 }
-
 #main{
 	width:800px;
 }
-
 .container{
 	clear:both;
   height:100%;
   overflow:hidden;
 }
-
 #main .col, #header .col{
    position:relative;
    float:left;
 }
-
 #navigation{
 	width:120px;
   padding:15px;
 	display:block;
 /*background:#006600;*/
 }
-
 #content{
   width:620px;
   padding:0px 15px;
@@ -90,13 +77,16 @@ div.field, div.actions {
 }
 
 /*Interface*/
-
 .name{font-weight:bold;}
-
 .ring{padding:2px 8px; color:white; border-radius:5px;}
+#red, #green, #blue{
+	position:absolute;
+	height:0px;
+	width:0px;
+	z-index:-1;
+}
 
 /*Errors*/
-
 #error_explanation {
   width: 450px;
   border: 2px solid red;
@@ -105,7 +95,6 @@ div.field, div.actions {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
-
 #error_explanation h3 {
   text-align: left;
   font-weight: bold;
@@ -117,12 +106,11 @@ div.field, div.actions {
   color: #fff;
 	border-radius: 0px;
 }
-
+#error_explanation h2{display:none;} /*Hack to edit the Devise error message*/
 #error_explanation ul li {
   font-size: 12px;
   list-style: &raquo;
 }
-
 .field_with_errors{
   font-weight:bold;
 	color: red;
@@ -130,11 +118,9 @@ div.field, div.actions {
 	display:inline;
 	font-size:16px;
 }
-
 .field_with_errors .message{
 	font-style: italic;
 }
-
 .field_with_errors>input, .field_with_errors>textarea{
 	border: 2px solid red;
 }

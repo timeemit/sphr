@@ -1,18 +1,25 @@
-1)  Destroy Clusters as they are currently.
-		-- A cluster should be a group of friends that all know each other.
-		-- The name of a cluster does not necessarily need to be unique but it can be changed by 
-		(anyone at any given time)
-		(a majority vote)
-2)	
-CHECK
+1)  CHECK 
+		Destroy Clusters as they are currently.
+2)	CHECK
 		Frnd Sphr should be the name of the website.
 		-- The colors should be in shades of GREEN.
-3)  Polish up the way posts are viewed and shared.
+3)  CHECK 
+		Polish up the way posts are viewed and shared.
 		-- Facebook does this well.
 		-- Create a color gradient for the different rings.
-4)	PICTURES, MOVIES, and AUDIO
-5)	Search
+4)	pictures, movies, and audio
+5)	CHECK 
+		Search
 		-- Browse and search through users for friends
 		-- Sift through the posts of friends for relevant quotes
-6)	Be able to keep track of who has been looking at your page.
-7)  Fix the number of rings a character can keep.
+6)	REVOKED Be able to keep track of who has been looking at your page.
+7)  CHECK 
+		Fix the number of rings a character can keep.
+8)  Think more about clusters
+		-- A cluster should be a group of friends that all know each other.
+		-- The name of a cluster does not necessarily need to be unique but it can be changed by (anyone at any given time) | (a majority vote)
+9)	AJAX requests everywhere!
+10) Help controller (no resource) that includes pages such as about, ring, cone, shouotut.
+11) Import from/export to Facebook
+12) Import from/export to Twitter
+13) Video conferencing??!

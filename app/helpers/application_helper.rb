@@ -12,14 +12,14 @@ module ApplicationHelper
   end
   
   #Returns a hex color code that represents how close the given ring is with respect to the public ring.
-  #Red is close, blue is cold?
   def color_for_ring(ring, public_ring)
+    #Red is close, blue is cold?
     #This was moved into the model.
   end
   
   #Returns a link to the user displaying a name appropriate for the current_user
   def link_through_name(user, current_user)
-    return link_to user.name(current_user), user_shoutouts_path(user)
+    return link_to user.name(current_user), user_shoutouts_path(user), :class => :name
   end
   
   #Given a ring, returns a span with the number in the appropriate background color
@@ -40,4 +40,13 @@ module ApplicationHelper
       (hrs < 24 ? (pluralize(hrs.to_s, 'hour') ) : (pluralize(hrs.divmod(24).first, 'day')))} ago"
     return time
   end
+
+  #Returns a summary of errors found in the form, if any exist.
+  def error_summary(object)
+    string = '<% if object.errors.any? %>'
+  	string <<	"<%= render :partial => 'partials/errors', :locals => {:objects => [object]}%>"
+  	string << '<% end %>'
+  	return string
+  end
+	
 end

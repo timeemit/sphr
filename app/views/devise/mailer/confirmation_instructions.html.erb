@@ -1,0 +1,10 @@
+<p>Welcome <%= @resource.email %>!</p>
+
+<p>You can go to confirm your account through the link below:</p>
+
+<!-- Should write a conditional to handle when request is coming from users/confirmations controller -->
+<!-- % if controller.controller_name == 'Confirmations'  % -->
+	<%= link_to 'Confirm my account', user_confirmation_path(:id => @user.id, :confirmation_token => @user.confirmation_token) %>
+<!-- % else % -->
+	<!-- <p>%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %</p> -->
+<!-- % end % -->

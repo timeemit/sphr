@@ -1,22 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= controller.action_name.capitalize %> <%= controller.controller_name.capitalize %></title>
-	<%= javascript_include_tag :defaults %>
-	<%= stylesheet_link_tag 'scaffold' %>
-  <%= csrf_meta_tag %>
-	
-	<%= yield :head %>
-	
-</head>
-<body>
-	<div id='supercontainer' style='text-align:center;'>
-		<span id='flash'><%= flash[:notice] %></span>
-		<%= yield %>
-	</div>
-</body>
-
-</html>
+<% content_for :main do %>
+	<% unless controller.action_name == 'home' %>
+	 <%= render :partial => 'partials/flash', :locals => {:flash => flash} %>
+	<% end %>
+	<%= yield %>
+<% end %>
+<%= render :file => 'layouts/application' %>

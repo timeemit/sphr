@@ -1,20 +1,17 @@
 class UsersController < ApplicationController
-  layout 'application', :unless => [:new, :create, :authenticate]
-  before_filter :require_no_user, :only => [:new, :create, :authenticate]
+  layout 'application', :unless => [:new, :create, :authenticate, :home]
+  before_filter :require_no_user, :only => [:home, :new, :create, :parallax]
   before_filter :require_user, :only => [:show, :edit, :update, :index, :destroy]
 
-  #GET /users/1/authenticate
-  # authenticate_user_path
-  def authenticate
-    @user = User.find(params[:id])
-    if @user.perishable_token == params[:perishable_token]
-      render :layout => 'users'
-    end
+  #GET /
+  def home
+    @user = User.new
+    render :layout => 'users'
   end
   
   #GET /users
   def index
-    @search = User.search(params[:search])
+    @search = User.where(:confirmed_at.ne => nil).search(params[:search]) #Hurray for Metawhere and Metasearch!!!
     @users = @search.relation.order(:username).page(params[:page])
   end
 
@@ -33,29 +30,33 @@ class UsersController < ApplicationController
     @user = @current_user
   end
   
+  #GET /users/:id/welcome
+  def welcome
+    @user = User.find(params[:id])
+    render :layout => 'users'
+  end
+  
   #POST /users
   def create
     @user = User.new(params[:user])
     if @user.save
-      if @user.activated
-        flash[:notice] = 'Welcome to Sphr!'
-        redirect_to user_shoutouts_path(@user)        
-      else
-        flash[:notice] = 'Thanks for signing up!'
-        render :action => :signup, :layout => 'users'
-      end
+      flash[:notice] = 'Thanks for signing up!'
+      @user.send_confirmation_instructions
+      render :action => :welcome, :layout => 'users'
     else
+      flash[:error] = 'Could not save email address.'
       render :action => :new, :layout => 'users'
     end
   end
   
   #POST /users/1
   def update
-    @user = @current_user # makes our views "cleaner" and more consistent
+    @user = User.find(params[:id]) # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       redirect_to user_posts_path(current_user)
     else
+      flash[:error] = 'Could not update account'
       render :action => :edit
     end
   end

@@ -32,7 +32,7 @@ class ProfilesController < ApplicationController
       flash[:notice] = 'Successfully created profile.'
       redirect_to user_profiles_path(@user)
     else
-      render :action => 'new'
+      render :action => 'new', :error => 'Could not create profile'
     end
   end
   
@@ -42,7 +42,7 @@ class ProfilesController < ApplicationController
       flash[:notice] = 'Successfully updated profile.'
       redirect_to user_profiles_path(@user)
     else
-      render :action => 'edit'
+      render :action => 'edit', :error => 'Could not update profile'
     end
   end
   

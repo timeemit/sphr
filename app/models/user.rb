@@ -4,7 +4,14 @@
 #The user model contains a username, password, email, and a distinction that helps other people identify who they are.
 #The user is related to other users via friendships, which he/she can organize into rings and cones.
 class User < ActiveRecord::Base
-  attr_accessible :username, :password, :password_confirmation, :email, :email_confirmation, :distinction
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable,  :lockable, :timeoutable and :omniauthable
+  devise :confirmable, :database_authenticatable
+    # :registerable, :recoverable, :rememberable, :trackable, :validatable
+
+  attr_accessible :username, :email, :email_confirmation, :distinction, :password, :password_confirmation
+  # attr_accessor 
+  attr_accessible :encrypted_password, :confirmation_token, :confirmed_at, :confirmation_sent_at# :remember_me
   
   #Associations
   
@@ -78,80 +85,42 @@ class User < ActiveRecord::Base
     
   #Validations
 	
-	validate :non_email_fields_blank_upon_creation, :on => :create
+  validate :non_email_fields_blank_upon_creation, :on => :create
+	
+  validate :account_confirmed, :on => :update
 	
 	validates :username,
 	            :presence => true,
 	            :uniqueness => true,
 	            :length => {:within => 4..20},
-	            :format => {
-	              :with => /^[a-z0-9]+$/i,
-            		:message => "must consist of only alphanumeric characters."
-            	},
-            	:on => :update
+	            :format => {:with => /^[a-z0-9]+$/i, :message => "must consist of only alphanumeric characters."},
+	            :on => :update
 	            
   validates :password,
               :presence => true,
               :confirmation => true,
               :length => {:within => 5..30},
-              :format => {
-                :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
-            		:message => "must have at leaset one lowercase letter, one uppercase letter, and one number."
-              },
+              :format => {:with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/, :message => "must have at least one lowercase letter, one uppercase letter, and one number."},
               :on => :update
   
-  validates :password_confirmation, #Probably unnecessary, since :confirmation => true is written
-              :presence => true,
-              :on => :update
+  # validates :password_confirmation, #Probably unnecessary, since :confirmation => true is written
+  #             :presence => {:on => :update}
   
   validates :email,
               :presence => true,
 	            :uniqueness => true,
-	            :confirmation => true,
+	            :confirmation => {:on => :create},
 	            :format => {
 	              :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
             		:message => "must be an '@' following alphanumeric or . _ % + - characters ending
                   with a period delimited server name."
 	            }
   
-  validates :email_confirmation, #Probably unnecessary, since :confirmation => true is written
-              :presence => true
+  # validates :email_confirmation, #Probably unnecessary, since :confirmation => true is written
+  #             :presence => true
               
   validates :distinction,
-              :presence => true,
-              :length => {:maximum => 200},
-              :uniqueness => { #Quite unnecessary
-                :message => 'in this exact writing has already been taken!  
-                  Please try something slightly different.'
-              },
-              :on => :update
-	
-  # validates_presence_of :username, :password, :email, :distinction, :message => 'is a required field.'
-  # validates_presence_of :email_confirmation, :password_confirmation, :message => 'was not present.'
-		
-  # validates_uniqueness_of :username, :email, :message => 'has already been taken.'
-  #   validates_uniqueness_of :distinction, :message => 'in this exact writing has already been taken!  Please try something different.'
-	
-  # validates_confirmation_of :email, :password, :message => 'did not match confirmation.'
-
-  # validates_length_of :username, :within => 4..20
-  # validates_length_of :password, :within => 5..30
-	
-  # #Requires Usernames to consist of of only punctuated alphanumeric characters
-  # validates_format_of :username, :with => /^[a-z0-9]+$/i,
-  #   :message => "must consist of only alphanumeric characters."
-  #   
-  # #Requires Passwords to consist of at least one number,
-  # #one uppercase character, and one lower case character
-  # validates_format_of :password, :with => /^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*$/,
-  #   :message => "must have at leaset one lowercase letter, one uppercase letter, and one number." 
-  #   
-  # #Requires Email to begin with include any word character, ".", "%", "_", "+", or "-" before the "@" 
-  # #followed by a word character, ".",
-  # validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-  #   :message => "addresses begin with alphanumeric characters, followed by an @ sign, 
-  #       followed by a period delimited server name."
-	
+              :length => {:maximum => 200}	
   
   #Methods
 	
@@ -343,18 +312,20 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  acts_as_authentic do |config|
-    config.validate_login_field = false
-    config.validate_password_field = false
-    config.validate_email_field = false
-  end
   
   def non_email_fields_blank_upon_creation
     self.username.blank? ? nil : self.errors.add(:username, 'must be blank')
     self.password.blank? ? nil : self.errors.add(:password, 'must be blank')
     self.password_confirmation.blank? ? nil : self.errors.add(:password_confirmation, 'must be blank')
     self.distinction.blank? ? nil : self.errors.add(:distinction, 'must be blank')
+  end
+  
+  def account_confirmed
+    unless self.confirmed?
+      self.errors.add(:username, 'cannot be changed until account is confirmed.')
+      self.errors.add(:password, 'cannot be changed until account is confirmed.')
+      self.errors.add(:distinction, 'cannot be changed until account is confirmed.')
+    end
   end
   
 end

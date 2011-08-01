@@ -1,6 +1,6 @@
 <h2>Welcome!</h2>
 
-<%= form_for @user do |form| %>
+<%= form_for @user, :url => {:action=>"create", :controller=>"users/confirmations"}, :html => { :method => :post } do |form| %>
 	<% if @user.errors.any? %>
 		<%= render :partial => 'partials/errors', :locals => {:objects => [@user]}%>
 	<% end %>
@@ -10,18 +10,18 @@
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :username}%>
 	</p>
 	<p>
-		<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
-		<%= form.password_field :password %>
+		<%= form.label :password %><br />
+		<%= form.text_field :password %>
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password}%>
 	</p>
 	<p>
-		<%= form.label :password_confirmation %><br />
-		<%= form.password_field :password_confirmation %>
+		<%= form.label :password_confirmation, 'Password Confirmation' %><br />
+		<%= form.text_field :password_confirmation %>
 		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :password_confirmation}%>
 	</p>
-	<p>
-		<%= form.hidden_field :email %>
-		<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email}%>
-	</p>
+	<%= form.hidden_field :email %>
+	<%= render :partial => 'partials/error_message', :locals => {:object => @user, :attribute => :email} %>
+	<%= hidden_field_tag :confirmation_token, @user.confirmation_token %>
+	
 	<%= form.submit "Register" %>
 <% end %>

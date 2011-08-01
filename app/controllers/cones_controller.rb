@@ -30,7 +30,7 @@ class ConesController < ApplicationController
       flash[:notice] = 'Cone successfully created!'
       redirect_to cone_path(@cone)
     else
-      flash[:notice] = 'Cone could not be created'
+      flash[:error] = 'Cone could not be created'
       render :action => 'new'
     end
   end
@@ -42,7 +42,7 @@ class ConesController < ApplicationController
       flash[:notice] = 'Update successful!'
       redirect_to cone_path(@cone)
     else
-      flash[:notice] = 'Could not update cone.'
+      flash[:error] = 'Could not update cone.'
       render :action => 'edit'
     end
   end

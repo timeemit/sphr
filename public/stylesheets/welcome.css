@@ -1,0 +1,28 @@
+#shell{
+	display: block;
+  position: relative;
+	width:480px;
+	height:320px;
+}
+.plax_welcome{position:absolute;}
+
+#title{
+	left:42px;
+	top:62px;
+}
+#top-left{
+	left:4px;
+	top:8px;
+}
+#top-right{
+	left:212px;
+	top:4px;
+}
+#bottom-left{
+	left:96px;
+	top:120px;
+}
+img#bottom-right{
+	left:268px;
+	top:112px;
+}

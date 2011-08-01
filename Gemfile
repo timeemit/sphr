@@ -6,21 +6,23 @@ gem 'rails', '3.0.9'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2', '0.2.11'
-gem 'authlogic', '~> 3.0.0'
+gem 'devise'
 gem 'kaminari'
 gem 'meta_where'
 gem 'meta_search'
 gem 'RedCloth', '>= 4.1.1'
+gem 'jquery-rails'
 gem 'json'
 gem 'sass'
 gem 'coffee-script'
 gem 'uglifier'
+gem 'therubyracer'
 
 # Use unicorn as the web server
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug'
