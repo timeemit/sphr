@@ -35,5 +35,5 @@ production:
   database: sphr_production
   pool: 5
   username: root
-  password: Lrn43vr
+  password: summertimelove
   socket: /tmp/mysql.sock

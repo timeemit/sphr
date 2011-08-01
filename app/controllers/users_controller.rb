@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = @current_user
   end
   
-  #GET /users/:id/parallax
+  #GET /users/:id/welcome
   def welcome
     @user = User.find(params[:id])
     render :layout => 'users'
