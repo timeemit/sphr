@@ -3,6 +3,10 @@ set :repository,  "git@github.com:timeemit/sphr.git"
 set :deploy_to, "/home/oricksum/public_html/#{application}"
 
 default_run_options[:pty] = true
+deploy.task :restart, :roles => :app do
+  run "/etc/init.d/apache2 graceful"
+end
+
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
