@@ -10,7 +10,7 @@
   <%= csrf_meta_tag %>
 	<%= favicon_link_tag 'favicon.ico' %>
 	<%= yield :head %>
-	
+	<%= render :partial => 'partials/piwik_tracking' %>	
 </head>
 
 <body>
