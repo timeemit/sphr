@@ -4,7 +4,7 @@ set :deploy_to, "/home/oricksum/public_html/#{application}"
 
 default_run_options[:pty] = true
 deploy.task :restart, :roles => :app do
-  run "/etc/init.d/apache2 graceful"
+  run "#{try_sudo} /etc/init.d/apache2 graceful"
 end
 
 
